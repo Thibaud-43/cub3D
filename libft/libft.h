@@ -12,8 +12,12 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFFER_SIZE 32
 
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <stdlib.h>
 
 typedef struct	s_list
@@ -67,5 +71,6 @@ void			*ft_memmove(void *dest, const void *src, size_t n);
 void			*ft_memset (void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+int		get_next_line(int fd, char **line);
 
 #endif
