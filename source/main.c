@@ -1,11 +1,7 @@
 #include "cub3D.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*win;
-
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 700, 800, "mlx_project");
-	mlx_loop(mlx);
+	printf("Valeur de retour: %d \n", ft_parser(argc, argv));
+	return (1);
 }

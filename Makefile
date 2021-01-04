@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= source/main.c
+SRCS			= source/main.c source/parsing.c
 OBJS			= $(SRCS:.c=.o)
 INC			=  -I includes/ -I libft/ -I $(MLX_DIR)
 CC			= clang
