@@ -25,6 +25,13 @@ typedef struct s_parsing
 	int	s_encountered;
 	int	f_encountered;
 	int	c_encountered;
+	int	map_encountered;
+	int	line_num_begin_map;
+	int	line_map_len_max;
+	int	nb_lines_map;
+	int	param_line_valid;
+	int	player_found;
+	char	**matrice;
 }		t_parsing;
 
 int ft_parser(int argc, char **argv);
