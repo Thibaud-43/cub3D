@@ -81,14 +81,28 @@ int	ft_malloc_matrice(t_parsing *parsing)
 	int i;
 
 	i = 0;
-	if(!(parsing->matrice = malloc(sizeof(char *) * (parsing->nb_lines_map + 1))))
+	if(!(parsing->matrice = malloc(sizeof(char *) * (parsing->nb_lines_map + 3))))
 		return (0);
-	while(i < parsing->nb_lines_map)
+	while(i < parsing->nb_lines_map + 2)
 	{
-		if(!(parsing->matrice[i] = malloc(sizeof(char *) * (parsing->line_map_len_max + 1))))
+		if(!(parsing->matrice[i] = malloc(sizeof(char *) * (parsing->line_map_len_max + 3))))
 			return (0);
 		i++;
 	}
+	i = 0;
+	while (i < (parsing->line_map_len_max + 2))
+	{
+		parsing->matrice[0][i] = ' ';
+		i++;
+	}
+	parsing->matrice[0][i] = 0;
+	i = 0;
+	while (i < (parsing->line_map_len_max + 2))
+	{
+		parsing->matrice[parsing->nb_lines_map + 1][i] = ' ';
+		i++;
+	}
+	parsing->matrice[parsing->nb_lines_map + 1][i] = 0;
 	return (1);
 }
 
@@ -106,6 +120,83 @@ void	ft_print_matrice(t_parsing *parsing)
 	free(parsing->matrice);
 }
 
+void	ft_check_comformity(int i, int k, t_parsing *parsing, int *error)
+{
+	int tmp_i;
+	int tmp_k;
+
+	tmp_i = i;
+	tmp_k = k;
+	while(parsing->matrice[i][k] != '1')
+	{
+		if (parsing->matrice[i][k] == ' ' | parsing->matrice[i][k] == 0)
+		{
+			*error = 1;
+			break;
+		}
+		i--;
+	}
+	i = tmp_i;
+	while(parsing->matrice[i][k] != '1')
+	{
+		if (parsing->matrice[i][k] == ' ' | parsing->matrice[i][k] == 0)
+		{
+			*error = 1;
+			break;
+
+		}
+		i++;
+	}
+	i = tmp_i;
+	while(parsing->matrice[i][k] != '1')
+	{
+		if (parsing->matrice[i][k] == ' ' | parsing->matrice[i][k] == 0)
+		{
+			*error = 1;
+			break;
+
+		}
+		k--;
+	}
+	k = tmp_k;
+	while(parsing->matrice[i][k] != '1')
+	{
+		if (parsing->matrice[i][k] == ' ' | parsing->matrice[i][k] == 0)
+		{
+			*error = 1;
+			break;
+
+		}
+		k++;
+	}	
+	k = tmp_k;
+}
+
+void	ft_parse_map_advanced_2(t_parsing *parsing)
+{
+	int i;
+	int k;
+	int error;
+
+	i = 0;
+	error = 0;
+	while(parsing->matrice[i])
+	{
+		k = 0;
+		while(parsing->matrice[i][k])
+		{
+			if(parsing->matrice[i][k] == '0' | parsing->matrice[i][k] == '2' | parsing->matrice[i][k] == 'N' | parsing->matrice[i][k] == 'S' | parsing->matrice[i][k] == 'O' | parsing->matrice[i][k] == 'E')
+			{
+			
+				ft_check_comformity(i, k, parsing, &error);
+			}
+			k++;
+		}
+		i++;
+	}	
+	if(error == 1)
+		message_map_invalid(parsing, "Error\n La map est invalide\n");
+}
 int	ft_parse_map_advanced(t_parsing *parsing, char **argv)
 {
 	int	fd;
@@ -115,7 +206,7 @@ int	ft_parse_map_advanced(t_parsing *parsing, char **argv)
 	int	z;
 
 	k = 1;
-	z = 0;
+	z = 1;
 	fd = open(argv[1], O_RDONLY);
 	if(fd < 0)
 		return (0);
@@ -126,12 +217,14 @@ int	ft_parse_map_advanced(t_parsing *parsing, char **argv)
 		if (k >= parsing->line_num_begin_map)
 		{
 			i = 0;
-			while (parsing->lign[i])
+			parsing->matrice[z][i] = ' ';
+			i++;
+			while (parsing->lign[i - 1])
 			{
-				parsing->matrice[z][i] = parsing->lign[i];
+				parsing->matrice[z][i] = parsing->lign[i - 1];
 				i++;
 			}
-			while (i <= parsing->line_map_len_max)
+			while ((i) <= (parsing->line_map_len_max + 1))
 			{
 				parsing->matrice[z][i] = ' ';
 				i++;
@@ -143,11 +236,13 @@ int	ft_parse_map_advanced(t_parsing *parsing, char **argv)
 		k++;
 	}
 	free(parsing->lign);		
-	parsing->matrice[z] = 0;
+	parsing->matrice[z + 1] = 0;
+	ft_parse_map_advanced_2(parsing);
 	ft_print_matrice(parsing);
 	close(fd);
 	return (1);
 }
+
 
 void	ft_all_params( t_parsing *parsing)
 {
@@ -219,29 +314,17 @@ int	ft_parse_ceiling(t_parsing *parsing)
 	if (parsing->c_encountered == 1)
 		message_map_invalid(parsing, "Error \n La ligne de param CEILING est présente deux fois\n");
 	parsing->c_encountered = 1;
-	if(!(ceiling = ft_split(parsing->lign, ' ')))
+	if(!(ceiling = ft_split(parsing->lign, ',')))
 		return (0);
-	if (ceiling[0][1] != 0 | ceiling[2] != 0)
+	if(!ceiling[0] | !ceiling[1] | !ceiling[2])
 		message_map_invalid(parsing, "Error \n La ligne de param CEILING n'est pas correctement rédigée \n");
-	if(!ceiling[0] | !ceiling[1])
-		message_map_invalid(parsing, "Error \n La ligne de param CEILING n'est pas correctement rédigée \n");
-	if(!(rgb = ft_split(ceiling[1], ',')))
+	if(!(rgb = ft_split(ceiling[0], ' ')))
 		return (0);
-	if((!rgb[2]) | (rgb[3] != 0))
+	if((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing, "Error \n La ligne de param CEILING n'est pas correctement rédigée \n");
-	while(rgb[i])
-	{
-		while(rgb[i][k])
-		{
-			if (ft_isdigit(rgb[i][k]) == 0)
-				message_map_invalid(parsing, "Error \n Le code RGB de param CEILING n'est pas correctement rédigé \n");
-			k++;
-		}
-		i++;
-	}
-	rgb_tab[0] = ft_atoi(rgb[0]);
-	rgb_tab[1] = ft_atoi(rgb[1]);
-	rgb_tab[2] = ft_atoi(rgb[2]);
+	rgb_tab[0] = ft_atoi(rgb[1]);
+	rgb_tab[1] = ft_atoi(ceiling[1]);
+	rgb_tab[2] = ft_atoi(ceiling[2]);
 	if((rgb_tab[0] < 0 | rgb_tab[0] > 255) | (rgb_tab[1] < 0 | rgb_tab[1] > 255) | (rgb_tab[2] < 0 | rgb_tab[2] > 255))
 		message_map_invalid(parsing, "Error \n Le code RGB de param CEILING n'est pas correctement rédigé \n");
 	free_split(rgb);	
@@ -262,29 +345,17 @@ int	ft_parse_floor(t_parsing *parsing)
 	if (parsing->f_encountered == 1)
 		message_map_invalid(parsing, "Error \n La ligne de param FLOOR est présente deux fois\n");
 	parsing->f_encountered = 1;
-	if(!(floor = ft_split(parsing->lign, ' ')))
+	if(!(floor = ft_split(parsing->lign, ',')))
 		return (0);
-	if (floor[0][1] != 0 | floor[2] != 0)
+	if(!floor[0] | !floor[1] | !floor[2])
 		message_map_invalid(parsing, "Error \n La ligne de param FLOOR n'est pas correctement rédigée \n");
-	if(!floor[0] | !floor[1])
-		message_map_invalid(parsing, "Error \n La ligne de param FLOOR n'est pas correctement rédigée \n");
-	if(!(rgb = ft_split(floor[1], ',')))
+	if(!(rgb = ft_split(floor[0], ' ')))
 		return (0);
-	if((!rgb[2]) | (rgb[3] != 0))
+	if((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing, "Error \n La ligne de param FLOOR n'est pas correctement rédigée \n");
-	while(rgb[i])
-	{
-		while(rgb[i][k])
-		{
-			if (ft_isdigit(rgb[i][k]) == 0)
-				message_map_invalid(parsing, "Error \n Le code RGB de param FLOOR n'est pas correctement rédigé \n");
-			k++;
-		}
-		i++;
-	}
-	rgb_tab[0] = ft_atoi(rgb[0]);
-	rgb_tab[1] = ft_atoi(rgb[1]);
-	rgb_tab[2] = ft_atoi(rgb[2]);
+	rgb_tab[0] = ft_atoi(rgb[1]);
+	rgb_tab[1] = ft_atoi(floor[1]);
+	rgb_tab[2] = ft_atoi(floor[2]);
 	if((rgb_tab[0] < 0 | rgb_tab[0] > 255) | (rgb_tab[1] < 0 | rgb_tab[1] > 255) | (rgb_tab[2] < 0 | rgb_tab[2] > 255))
 		message_map_invalid(parsing, "Error \n Le code RGB de param FLOOR n'est pas correctement rédigé \n");
 	free_split(rgb);	
@@ -539,6 +610,6 @@ int	ft_parser(int argc, char **argv)
 	ft_all_params(&parsing);
 	ft_parse_map_advanced(&parsing, argv);
 	close(fd);
-	printf("La map commence à la ligne numeros : %d\nLe nombre de ligne de la map est de : %d\nLa taille max de la ligne est de : %d\n", parsing.line_num_begin_map, parsing.nb_lines_map, parsing.line_map_len_max);
+//	printf("La map commence à la ligne numeros : %d\nLe nombre de ligne de la map est de : %d\nLa taille max de la ligne est de : %d\n", parsing.line_num_begin_map, parsing.nb_lines_map, parsing.line_map_len_max);
 	return (parsing.is_valid);
 }
