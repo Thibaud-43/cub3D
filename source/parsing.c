@@ -118,7 +118,11 @@ int				ft_parser(int argc, char **argv, t_map *map)
 	free(parsing.lign);
 	ft_all_params(&parsing);
 	if (parsing.is_valid == 1)
+<<<<<<< HEAD
 		ft_parse_map_advanced(&parsing, argv, map);
+=======
+		ft_parse_map_advanced(&parsing, argv);
+>>>>>>> d40247826a3c71b55a8fdca74748ada84aca4931
 	close(fd);
 	return (parsing.is_valid);
 }
