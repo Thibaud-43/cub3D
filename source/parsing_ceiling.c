@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:33:14 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:00:47 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,22 @@ void		ft_check_coma(t_parsing *parsing)
 		"Error\n il y a trop de virgules dans CEILING");
 }
 
-void		ft_parse_ceiling_2(t_parsing *parsing, char **ceiling, char **rgb)
+void		ft_parse_ceiling_2(t_parsing *parsing, char **ceiling, char **rgb, t_map *map)
 {
-	int		rgb_tab[3];
-
 	if ((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing,
 		"Error \n La ligne de param CEILING n'est pas bien rédigée \n");
-	rgb_tab[0] = ft_atoi(rgb[1]);
-	rgb_tab[1] = ft_atoi(ceiling[1]);
-	rgb_tab[2] = ft_atoi(ceiling[2]);
-	if ((rgb_tab[0] < 0 | rgb_tab[0] > 255)
-		| (rgb_tab[1] < 0 | rgb_tab[1] > 255)
-		| (rgb_tab[2] < 0 | rgb_tab[2] > 255))
+	map->ceiling[0] = ft_atoi(rgb[1]);
+	map->ceiling[1] = ft_atoi(ceiling[1]);
+	map->ceiling[2] = ft_atoi(ceiling[2]);
+	if ((map->ceiling[0] < 0 | map->ceiling[0] > 255)
+		| (map->ceiling[1] < 0 | map->ceiling[1] > 255)
+		| (map->ceiling[2] < 0 | map->ceiling[2] > 255))
 		message_map_invalid(parsing,
 		"Erro\n Le code rb n'est pas valide \n");
 }
 
-int			ft_parse_ceiling(t_parsing *parsing)
+int			ft_parse_ceiling(t_parsing *parsing, t_map *map)
 {
 	char	**ceiling;
 	char	**rgb;
@@ -66,7 +64,7 @@ int			ft_parse_ceiling(t_parsing *parsing)
 		"Error \n La ligne de param CEILING n'est pas correctement rédigée \n");
 	if (!(rgb = ft_split(ceiling[0], ' ')))
 		return (0);
-	ft_parse_ceiling_2(parsing, ceiling, rgb);
+	ft_parse_ceiling_2(parsing, ceiling, rgb, map);
 	free_split(rgb);
 	free_split(ceiling);
 	return (1);

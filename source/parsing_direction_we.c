@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:49:32 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:11:26 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_parse_direction_we(t_parsing *parsing)
+int	ft_parse_direction_we(t_parsing *parsing, t_map *map)
 {
 	char	**direction;
 	int		fd;
@@ -35,6 +35,7 @@ int	ft_parse_direction_we(t_parsing *parsing)
 		message_map_invalid(parsing,
 		"Error \n La texture WE n'est pas correcte \n");
 	close(fd);
+	map->we = ft_strdup(direction[1]);
 	free_split(direction);
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:07:19 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:16:36 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:08:55 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_parse_sprite(t_parsing *parsing)
+int	ft_parse_sprite(t_parsing *parsing, t_map *map)
 {
 	char	**sprite;
 	int		fd;
@@ -35,6 +35,7 @@ int	ft_parse_sprite(t_parsing *parsing)
 		message_map_invalid(parsing,
 		"Error \nLE SPRITE ne s'ouvre pas correctement\n");
 	close(fd);
+	map->sprite = ft_strdup(sprite[1]);
 	free_split(sprite);
 	return (1);
 }

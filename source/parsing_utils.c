@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:25:39 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:17:43 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:41:55 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ void	message_map_invalid(t_parsing *parsing, char *str)
 void	ft_init_parsing(t_parsing *parsing)
 {
 	parsing->lign = NULL;
-	parsing->matrice = NULL;
 	parsing->is_valid = 1;
 	parsing->resolution_encountered = 0;
-	parsing->resolution_width = 0;
-	parsing->resolution_height = 0;
 	parsing->no_encountered = 0;
 	parsing->so_encountered = 0;
 	parsing->we_encountered = 0;
@@ -54,16 +51,16 @@ void	free_split(char **str)
 	free(str);
 }
 
-void	ft_print_matrice(t_parsing *parsing)
+void	ft_print_matrice(t_map *map)
 {
 	int	k;
 
 	k = 0;
-	while (parsing->matrice[k])
+	while (map->matrice[k])
 	{
-		printf("%s\n", parsing->matrice[k]);
-		free(parsing->matrice[k]);
+		printf("%s\n", map->matrice[k]);
+		free(map->matrice[k]);
 		k++;
 	}
-	free(parsing->matrice);
+	free(map->matrice);
 }

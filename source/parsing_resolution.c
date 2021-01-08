@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:03:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:15:12 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:05:09 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_parse_resolution_2(t_parsing *parsing, char **resolution, int i)
+void	ft_parse_resolution_2(t_parsing *parsing, char **resolution, int i, t_map *map)
 {
 	if (parsing->is_valid)
 	{
@@ -31,16 +31,16 @@ void	ft_parse_resolution_2(t_parsing *parsing, char **resolution, int i)
 				"Error \n La resolution Y comprend un charactère invalide \n");
 			i++;
 		}
-		parsing->resolution_width = ft_atoi(resolution[1]);
-		parsing->resolution_height = ft_atoi(resolution[2]);
-		if (parsing->resolution_width == 0 |
-			parsing->resolution_height == 0)
+		map->resolution[0] = ft_atoi(resolution[1]);
+		map->resolution[1] = ft_atoi(resolution[2]);
+		if (map->resolution[0] == 0 |
+			map->resolution[1] == 0)
 			message_map_invalid(parsing,
 			"Error \n Une des résolutions est égale a zero \n");
 	}
 }
 
-int		ft_parse_resolution(t_parsing *parsing)
+int		ft_parse_resolution(t_parsing *parsing, t_map *map)
 {
 	char	**resolution;
 	int		i;
@@ -62,7 +62,7 @@ int		ft_parse_resolution(t_parsing *parsing)
 	if ((resolution[0][0] != 'R') | resolution[0][1])
 		message_map_invalid(parsing,
 		"Error \nLa ligne de param R n'est pas correctement rédigée \n");
-	ft_parse_resolution_2(parsing, resolution, i);
+	ft_parse_resolution_2(parsing, resolution, i, map);
 	free_split(resolution);
 	return (1);
 }
