@@ -6,9 +6,9 @@ EA ./textures/EA.xpm
 S ./textures/SPRITE.xpm
 C 0     ,  0     ,   0 
 F 255   ,   255   ,   255
-
 11111
-10NN01
+100N01
 11101111
 1 101 11
 1 111 11
+

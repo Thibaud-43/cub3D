@@ -117,7 +117,7 @@ int				ft_parser(int argc, char **argv)
 	}
 	free(parsing.lign);
 	ft_all_params(&parsing);
-	if (parsing->is_valid == 1)
+	if (parsing.is_valid == 1)
 		ft_parse_map_advanced(&parsing, argv);
 	close(fd);
 	return (parsing.is_valid);
