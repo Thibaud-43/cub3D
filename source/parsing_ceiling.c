@@ -6,11 +6,26 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:44:07 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:33:14 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void		ft_check_coma(t_parsing *parsing)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (parsing->lign[i])
+		if (parsing->lign[i++] == ',')
+			count++;
+	if (count != 2)
+		message_map_invalid(parsing,
+		"Error\n il y a trop de virgules dans CEILING");
+}
 
 void		ft_parse_ceiling_2(t_parsing *parsing, char **ceiling, char **rgb)
 {
@@ -39,6 +54,7 @@ int			ft_parse_ceiling(t_parsing *parsing)
 	i = 0;
 	k = 0;
 	parsing->param_line_valid = 1;
+	ft_check_coma(parsing);
 	if (parsing->c_encountered == 1)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param CEILING est présente deux fois\n");
