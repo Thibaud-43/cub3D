@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:26:50 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:13:12 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:21:43 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ int				ft_parser(int argc, char **argv)
 		return (0);
 	while ((ret = get_next_line(fd, &parsing.lign)))
 	{
-		if (ft_parser_2 == 0 | ft_parser_3 == 0 | ft_parser_4 == 0)
+		if (ft_parser_2(&parsing, &i, &k) == 0
+			| ft_parser_3(&parsing, &i, &k) == 0
+			| ft_parser_4(&parsing, &i, &k) == 0)
 			return (0);
 	}
 	free(parsing.lign);
