@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:03:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:10:26 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:11:30 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_parse_resolution_2(t_parsing *parsing)
+void	ft_parse_resolution_2(t_parsing *parsing, char **resolution)
 {
 	if (parsing->is_valid)
 	{
@@ -62,7 +62,7 @@ int		ft_parse_resolution(t_parsing *parsing)
 	if ((resolution[0][0] != 'R') | resolution[0][1])
 		message_map_invalid(parsing, "Error \n
 		La ligne de param R n'est pas correctement rédigée \n");
-	ft_parse_resolution_2(parsing);
+	ft_parse_resolution_2(parsing, resolution);
 	free_split(resolution);
 	return (1);
 }
