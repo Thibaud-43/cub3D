@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:26:50 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:26:40 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:38:20 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int				ft_parser(int argc, char **argv)
 	}
 	free(parsing.lign);
 	ft_all_params(&parsing);
-	ft_parse_map_advanced(&parsing, argv);
+	if (parsing->is_valid == 1)
+		ft_parse_map_advanced(&parsing, argv);
 	close(fd);
 	return (parsing.is_valid);
 }
