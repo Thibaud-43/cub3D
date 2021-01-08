@@ -34,6 +34,15 @@ typedef struct s_parsing
 	char	**matrice;
 }		t_parsing;
 
+typedef struct s_parse_map
+{
+	int fd;
+	int ret;
+	int k;
+	int i;
+	int z;
+}	t_p_map;
+
 int ft_parser(int argc, char **argv);
 void	ft_check_args(t_parsing *parsing, int argc, char **argv);
 int	ft_checks_cub_format(char *str);
