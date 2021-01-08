@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:32:14 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:34:32 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void		ft_check_coma(t_parsing *parsing)
+void		ft_check_coma_floor(t_parsing *parsing)
 {
 	int i;
 	int count;
@@ -54,7 +54,7 @@ int			ft_parse_floor(t_parsing *parsing)
 	i = 0;
 	k = 0;
 	parsing->param_line_valid = 1;
-	ft_check_coma(parsing);
+	ft_check_coma_floor(parsing);
 	if (parsing->f_encountered == 1)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param FLOOR est présente deux fois\n");
