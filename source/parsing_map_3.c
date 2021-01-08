@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:22:09 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:05:24 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:18:26 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		ft_check_vertical(int i, int k, t_parsing *parsing, int *error)
 {
 	int tmp_i;
-	
+
 	tmp_i = i;
 	while (parsing->matrice[i][k] != '1')
 	{

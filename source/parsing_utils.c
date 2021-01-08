@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:25:39 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 10:26:27 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:17:43 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ void	free_split(char **str)
 	free(str);
 }
 
-
 void	ft_print_matrice(t_parsing *parsing)
 {
 	int	k;
-	
+
 	k = 0;
-	while(parsing->matrice[k])
+	while (parsing->matrice[k])
 	{
 		printf("%s\n", parsing->matrice[k]);
 		free(parsing->matrice[k]);
@@ -68,4 +67,3 @@ void	ft_print_matrice(t_parsing *parsing)
 	}
 	free(parsing->matrice);
 }
-
