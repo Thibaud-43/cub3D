@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:39:27 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:44:07 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		ft_parse_ceiling_2(t_parsing *parsing, char **ceiling, char **rgb)
 {
+	int		rgb_tab[3];
+
 	if ((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing,
 		"Error \n La ligne de param CEILING n'est pas bien rédigée \n");
@@ -31,7 +33,6 @@ int			ft_parse_ceiling(t_parsing *parsing)
 {
 	char	**ceiling;
 	char	**rgb;
-	int		rgb_tab[3];
 	int		i;
 	int		k;
 
