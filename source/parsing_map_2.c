@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:22:09 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 12:22:57 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 12:23:55 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_mallloc_matrice(t_parsing *parsing)
 			return (0);
 		i++;
 	}
+	return (1);
 }
 
 int		ft_init_matrice(t_parsing *parsing)
