@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:22:09 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 12:23:55 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 12:26:12 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		ft_parse_map_advanced(t_parsing *parsing, char **argv)
 		return (0);
 	if (ft_init_matrice(parsing) == 0)
 		return (0);
+	ft_parse_map_advanced_3(parsing, &p_map);
 	free(parsing->lign);
 	parsing->matrice[(p_map.z) + 1] = 0;
 	ft_parse_map_advanced_2(parsing);
