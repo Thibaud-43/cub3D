@@ -6,11 +6,11 @@
 #    By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/20 17:04:20 by trouchon          #+#    #+#              #
-#    Updated: 2020/11/20 17:04:28 by trouchon         ###   ########.fr        #
+#    Updated: 2021/01/08 10:44:38 by trouchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= source/main.c source/parsing.c
+SRCS			= source/main.c source/parsing.c source/parsing_args.c source/parsing_ceiling.c source/parsing_direction_ea.c source/parsing_direction_no.c source/parsing_direction_so.c source/parsing_direction_we.c source/parsing_floor.c source/parsing_map_1.c source/parsing_map_2.c source/parsing_map_3.c  source/parsing_resolution.c source/parsing_sprite.c source/parsing_utils.c 
 OBJS			= $(SRCS:.c=.o)
 INC			=  -I includes/ -I libft/ -I $(MLX_DIR)
 CC			= clang

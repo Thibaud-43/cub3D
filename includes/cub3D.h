@@ -35,6 +35,28 @@ typedef struct s_parsing
 }		t_parsing;
 
 int ft_parser(int argc, char **argv);
+void	ft_check_args(t_parsing *parsing, int argc, char **argv);
+int	ft_checks_cub_format(char *str);
+void	ft_all_params( t_parsing *parsing);
+int	ft_check_save_flag(char *str);
+int	ft_parse_ceiling(t_parsing *parsing);
+int	ft_parse_floor(t_parsing *parsing);
+int	ft_parse_direction_ea(t_parsing *parsing);
+int	ft_parse_direction_no(t_parsing *parsing);
+int	ft_parse_direction_so(t_parsing *parsing);
+int	ft_parse_direction_we(t_parsing *parsing);
+void	ft_check_ch_map(t_parsing *parsing);
+int	ft_parse_map(t_parsing *parsing, int k);
+int	ft_init_matrice(t_parsing *parsing);
+int	ft_parse_map_advanced(t_parsing *parsing, char **argv);
+void	ft_check_comformity(int i, int k, t_parsing *parsing, int *error);
+void	ft_parse_map_advanced_2(t_parsing *parsing);
+int	ft_parse_resolution(t_parsing *parsing);
+int	ft_parse_sprite(t_parsing *parsing);
+void	message_map_invalid(t_parsing *parsing, char *str);
+void	ft_init_parsing(t_parsing *parsing);
+void	free_split(char **str);
+void	ft_print_matrice(t_parsing *parsing);
 
 #endif
 
