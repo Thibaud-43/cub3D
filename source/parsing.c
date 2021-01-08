@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:26:50 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:21:43 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:23:55 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int		ft_parser_4(t_parsing *parsing, int *i, int *k)
 	{
 		parsing->param_line_valid = 1;
 	}
-	if (parsing->lign[*i] == '0' | parsing.lign[*i] == '1')
+	if (parsing->lign[*i] == '0' | parsing->lign[*i] == '1')
 	{
 		if (!(ft_parse_map(parsing, *k)))
 			return (0);
 	}
-	if (parsing.param_line_valid == 0)
+	if (parsing->param_line_valid == 0)
 	{
 		message_map_invalid(parsing,
 		"Error\n Une ligne n'est pas correcte\n");
@@ -59,7 +59,7 @@ static int		ft_parser_3(t_parsing *parsing, int *i, int *k)
 	{
 		message_map_invalid(parsing,
 		"Error\n Présence d'uneligne vide au niveau de la map\n");
-		parsing.param_line_valid = 1;
+		parsing->param_line_valid = 1;
 	}
 }
 
