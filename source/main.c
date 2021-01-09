@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/09 10:55:34 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:21:49 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int     main(void)
 
     mlx = mlx_init();
 }
+
 /*int		main(int argc, char **argv)
 {
 	t_map	map;
