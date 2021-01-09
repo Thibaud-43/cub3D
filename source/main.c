@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 17:54:46 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/09 10:55:34 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,18 @@ void	ft_free_map(t_map *map)
 	free(map->sprite);
 	ft_print_matrice(map);
 }
+int     main(void)
+{
+    void    *mlx;
 
-int		main(int argc, char **argv)
+    mlx = mlx_init();
+}
+/*int		main(int argc, char **argv)
 {
 	t_map	map;
 	ft_initialize_map(&map);
+
+	
 	printf("Valeur de retour: %d \n", ft_parser(argc, argv, &map));
 	printf("Valeur de no : %s \n", map.no);
 	printf("Valeur de so : %s \n", map.so);
@@ -55,4 +62,5 @@ int		main(int argc, char **argv)
 	printf("Valeur de resolution : %d / %d \n", map.resolution[0], map.resolution[1]);
 	ft_free_map(&map);
 	return (1);
-}
+}*/
+

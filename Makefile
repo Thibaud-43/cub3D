@@ -6,7 +6,7 @@
 #    By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/20 17:04:20 by trouchon          #+#    #+#              #
-#    Updated: 2021/01/08 10:44:38 by trouchon         ###   ########.fr        #
+#    Updated: 2021/01/09 12:17:57 by trouchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJS			= $(SRCS:.c=.o)
 INC			=  -I includes/ -I libft/ -I $(MLX_DIR)
 CC			= clang
 RM			= rm -f
-CFLAGS			= -O3 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS			= -O3 -Wall -Wextra -Werror #-fsanitize=address
 MLX_DIR			= ./mlx
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 LIBFT_DIR		= ./libft
