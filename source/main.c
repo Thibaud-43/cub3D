@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/09 12:21:49 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:25:32 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,16 @@ void	ft_free_map(t_map *map)
 	free(map->sprite);
 	ft_print_matrice(map);
 }
-int     main(void)
+
+
+int	main(void)
 {
     void    *mlx;
+    void    *mlx_win;
 
     mlx = mlx_init();
+    mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+    mlx_loop(mlx);
 }
 
 /*int		main(int argc, char **argv)
