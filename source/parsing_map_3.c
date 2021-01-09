@@ -87,6 +87,12 @@ void		ft_parse_map_advanced_2(t_parsing *parsing, t_map *map)
 			| map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
 			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
 				ft_check_comformity(i, k, map, &error);
+			if ( map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
+			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
+			{
+				map->player_x = k;
+				map->player_y = i;
+			}
 			k++;
 		}
 		i++;

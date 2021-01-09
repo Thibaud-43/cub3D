@@ -11,6 +11,19 @@
 #include <string.h>
 #include <math.h>
 
+typedef struct  s_data {
+    void        *img;
+    int        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_data;
+
+typedef struct s_vars {
+	void *mlx;
+	void *win;
+}	t_vars;
+
 typedef struct s_map
 {
 	char **matrice;
@@ -22,6 +35,10 @@ typedef struct s_map
 	int	ceiling[3];
 	int	floor[3];
 	int	resolution[2];
+	int	player_x;
+	int	player_y;
+	t_vars	vars;
+	t_data	img;
 }	t_map;
 
 typedef struct s_parsing
