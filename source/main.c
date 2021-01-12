@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/09 13:25:13 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:36:23 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	ft_go_up(t_map *map)
 		map->matrice[map->player_y - 1][map->player_x] = 'S';
 		map->matrice[map->player_y][map->player_x] = '0';
 		map->player_y--;
-		print_window_matrice(map);
+	//	print_window_matrice(map);
+		ft_raycasting(map);
 	}
 }
 
@@ -107,7 +108,8 @@ void	ft_go_down(t_map *map)
 		map->matrice[map->player_y + 1][map->player_x] = 'S';
 		map->matrice[map->player_y][map->player_x] = '0';
 		map->player_y++;
-		print_window_matrice(map);
+		//print_window_matrice(map);
+		ft_raycasting(map);
 	}
 }
 
@@ -119,7 +121,8 @@ void	ft_go_right(t_map *map)
 		map->matrice[map->player_y][map->player_x + 1] = 'S';
 		map->matrice[map->player_y][map->player_x] = '0';
 		map->player_x++;
-		print_window_matrice(map);
+		//print_window_matrice(map);
+		ft_raycasting(map);
 	}
 }
 
@@ -131,7 +134,8 @@ void	ft_go_left(t_map *map)
 		map->matrice[map->player_y][map->player_x - 1] = 'S';
 		map->matrice[map->player_y][map->player_x] = '0';
 		map->player_x--;
-		print_window_matrice(map);
+		//print_window_matrice(map);
+		ft_raycasting(map);
 	}
 }
 
