@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:38:20 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:44:38 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_raycasting
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
+	int		width;
+	int		height;
 	int		x;
 }				t_ray;
 
@@ -68,7 +70,7 @@ void	ft_init_raycasting_struct(t_ray *ray, t_map *map)
 	ray->drawend = 0;
 	ray->x = 0;
 	ray->width = map->resolution[0];
-	ray->height = map->resoltuion[1];
+	ray->height = map->resolution[1];
 
 }
 
@@ -79,18 +81,18 @@ int 	ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
 	i = 0;
 	while (i < ray->drawstart)
 	{
-		map->img->addr[x * map->img->line_length / 4 + i] = 0x000000;
+		map->img.addr[x * map->img.line_length / 4 + i] = 0x000000;
 		i++;
 	}
 	while (ray->drawstart <= ray->drawend)
 	{
-		map->img->addr[x * map->img->line_length / 4 + ray->drawstart] = 0xFCBA03;
+		map->img.addr[x * map->img.line_length / 4 + ray->drawstart] = 0xFCBA03;
 		ray->drawstart++;
 		i++;
 	}	
 	while (i < ray->height)
 	{
-		map->img->addr[x * map->img->line_length / 4 + i] = 0x03FCCA;
+		map->img.addr[x * map->img.line_length / 4 + i] = 0x03FCCA;
 		i++;
 	}
 }
@@ -99,14 +101,14 @@ int		ft_raycasting(t_map	*map)
 {
 	t_ray	ray;
 
-	ft_init_raycasting_struct(&ray);
-	while (x < ray.width)
+	ft_init_raycasting_struct(&ray, map);
+	while (ray.x < ray.width)
 	{
 		ray.cameraX = 2 * x / double(ray.width) - 1;
 		ray.rayDirX = ray.dirX + ray.planeX * ray.cameraX;
-		ray.rayDirY = ray.dirY + ray.planeY * ray.cameraY;
-		ray.mapX = map.player_x;
-		ray.mapY = map.player_y;
+		ray.rayDirY = ray.dirY + ray.planeY * ray.cameraX;
+		ray.mapX = map->player_x;
+		ray.mapY = map->player_y;
 		if (ray.rayDirX = 0)
 			ray.deltadistX = 0;
 		else
@@ -157,6 +159,7 @@ int		ft_raycasting(t_map	*map)
 		else	
 			ray.perpWallDist = (ray.mapY - ray.posY + (1 - ray.stepY) / 2) / ray.rayDirY;
 		ft_draw_vertical_line(x, ray, map);
+		ray.x++;
 	}
 	mlx_put_image_to_window(map->vars->mlx, map->vars->win, map->img->img, 0, 0);
 }
