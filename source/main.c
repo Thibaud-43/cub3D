@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:36:23 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:58:46 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void             window(t_map *map)
     map->vars.win = mlx_new_window(map->vars.mlx, 1300, 700, "Hello world!");
     map->img.img = mlx_new_image(map->vars.mlx, 1300, 700);
     map->img.addr = (int *)mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
-	print_window_matrice(map);
-    mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
+    ft_raycasting(map);
+	//mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
     mlx_loop(map->vars.mlx);
 }
 int		main(int argc, char **argv)
