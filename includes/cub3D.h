@@ -99,6 +99,7 @@ void	message_map_invalid(t_parsing *parsing, char *str);
 void	ft_init_parsing(t_parsing *parsing);
 void	free_split(char **str);
 void	ft_print_matrice(t_map *map);
+int		ft_raycasting(t_map *map);
 
 #endif
 
