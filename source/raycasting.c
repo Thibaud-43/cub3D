@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:44:38 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:56:11 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_raycasting
 	double cameraX;
 	double rayDirX;
 	double rayDirY;
-	int		mapx;
-	int		mapy;
+	int		mapX;
+	int		mapY;
 	double		sidedistx;
 	double		sidedisty;
 	double		deltadistx;
@@ -54,8 +54,8 @@ void	ft_init_raycasting_struct(t_ray *ray, t_map *map)
 	ray->cameraX = 0;
 	ray->rayDirX = 0;
 	ray->rayDirY = 0;
-	ray->mapx = 0;
-	ray->mapy = 0;
+	ray->mapX = 0;
+	ray->mapY = 0;
 	ray->sidedistx = 0;
 	ray->sidedisty = 0;
 	ray->deltadistx = 0;
@@ -74,7 +74,7 @@ void	ft_init_raycasting_struct(t_ray *ray, t_map *map)
 
 }
 
-int 	ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
+void 	ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
 {
 	int i;
 
@@ -104,62 +104,63 @@ int		ft_raycasting(t_map	*map)
 	ft_init_raycasting_struct(&ray, map);
 	while (ray.x < ray.width)
 	{
-		ray.cameraX = 2 * x / double(ray.width) - 1;
+		ray.cameraX = 2 * ray.x / ((double)ray.width) - 1;
 		ray.rayDirX = ray.dirX + ray.planeX * ray.cameraX;
 		ray.rayDirY = ray.dirY + ray.planeY * ray.cameraX;
 		ray.mapX = map->player_x;
 		ray.mapY = map->player_y;
-		if (ray.rayDirX = 0)
-			ray.deltadistX = 0;
+		if (ray.rayDirX == 0)
+			ray.deltadistx = 0;
 		else
-			ray.deltadistX = abs(1 / ray.rayDirX);
-		if (ray.rayDirY = 0)
-			ray.deltadistY = 0;
+			ray.deltadistx = fabs(1 / ray.rayDirX);
+		if (ray.rayDirY == 0)
+			ray.deltadisty = 0;
 		else
-			ray.deltadistY = abs(1 / ray.rayDirY);
+			ray.deltadisty = fabs(1 / ray.rayDirY);
 		if (ray.rayDirX < 0)
 		{
 			ray.stepx = -1;
-			ray.sidedistx = (ray.posX - ray.mapX) * ray.deltadistX;
+			ray.sidedistx = (ray.posX - ray.mapX) * ray.deltadistx;
 		}
 		else
 		{
 			ray.stepx = 1;
-			ray.sidedistx = (ray.posX + 1.0 - ray.mapX) * ray.deltadistX;
+			ray.sidedistx = (ray.posX + 1.0 - ray.mapX) * ray.deltadistx;
 		}
 		if (ray.rayDirY < 0)
 		{
 			ray.stepy = -1;
-			ray.sidedisty = (ray.posY - ray.mapY) * ray.deltadistY;
+			ray.sidedisty = (ray.posY - ray.mapY) * ray.deltadisty;
 		}
 		else
 		{
 			ray.stepy = 1;
-			ray.sidedisty = (ray.posY + 1.0 - ray.mapY) * ray.deltadistY;
+			ray.sidedisty = (ray.posY + 1.0 - ray.mapY) * ray.deltadisty;
 		}
 		while (ray.hit == 0)
 		{
-			if (ray.sidedistX < ray.sidedistY)
+			if (ray.sidedistx < ray.sidedisty)
 			{
-				ray.sidedistx += ray.deltadistX;
-				ray.mapX += ray.stepX;
-				side = 0;
+				ray.sidedistx += ray.deltadistx;
+				ray.mapX += ray.stepx;
+				ray.side = 0;
 			}
 			else
 			{
-				ray.sidedistY += ray.deltadisty;
-				ray.mapY += ray.stepY;
+				ray.sidedisty += ray.deltadisty;
+				ray.mapY += ray.stepy;
 				ray.side = 1;
 			}
-			if (map->matrice[mapX][map] > 0)
+			if (map->matrice[ray.mapX][ray.mapY] > 0)
 				ray.hit = 1;
 		}
 		if (ray.side == 0)
-			ray.perpWallDist = (ray.mapX - ray.posX + (1 - ray.stepX) / 2) / ray.rayDirX;
+			ray.perpwalldist = (ray.mapX - ray.posX + (1 - ray.stepx) / 2) / ray.rayDirX;
 		else	
-			ray.perpWallDist = (ray.mapY - ray.posY + (1 - ray.stepY) / 2) / ray.rayDirY;
-		ft_draw_vertical_line(x, ray, map);
+			ray.perpwalldist = (ray.mapY - ray.posY + (1 - ray.stepy) / 2) / ray.rayDirY;
+		ft_draw_vertical_line(ray.x, &ray, map);
 		ray.x++;
 	}
-	mlx_put_image_to_window(map->vars->mlx, map->vars->win, map->img->img, 0, 0);
+	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
+	return (1);
 }
