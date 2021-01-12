@@ -90,8 +90,8 @@ void		ft_parse_map_advanced_2(t_parsing *parsing, t_map *map)
 			if ( map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
 			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
 			{
-				map->player_x = k;
-				map->player_y = i;
+				map->player_x = (double)k + 0.5;
+				map->player_y = (double)i + 0.5;
 			}
 			k++;
 		}

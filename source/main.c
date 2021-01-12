@@ -40,101 +40,38 @@ void	ft_free_map(t_map *map)
 	ft_print_matrice(map);
 }
 
-void		draw(t_data *img, int x, int y, int color)
-{ 
-	int tmp_x;
-	int tmp_y;
-
-	tmp_x = x * 30;
-	while((tmp_x) < ((x + 1) * 30))
-	{
-		tmp_y = y * 30;
-		while((tmp_y) < ((y + 1) * 30))
-		{
-			img->addr[tmp_x * img->line_length / 4 + tmp_y] = color;
-			tmp_y++;
-		}
-		tmp_x++;
-	}
-}
-
-void	print_window_matrice(t_map *map)
-{
-	int x;
-	int y;
-
-	x = 0;
-       	while(map->matrice[x])
-    	{
-	    y = 0;
-	    while(map->matrice[x][y])
-	    {
-		    if(map->matrice[x][y] == '1')
-		    {
-			draw(&map->img, x, y, 0xFCBA03);
-		    }
-		    else if(map->matrice[x][y] == '0')
-		    {
-			draw(&map->img, x, y, 0x03FCCA);
-		    }
-		    else
-			    draw(&map->img, x, y, 0x000000);
-		    y++;
-	    }
-	    x++;
-    	}
-	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
-}
-
-
 void	ft_go_up(t_map *map)
 {
-	printf("Matrice : %c \n",map->matrice[6][15]);
-	if (map->matrice[map->player_y - 1][map->player_x] == '0')
+	if (map->matrice[((int)(map->player_y - 0.2))][(int)map->player_x] == '0')
 	{
-		map->matrice[map->player_y - 1][map->player_x] = 'S';
-		map->matrice[map->player_y][map->player_x] = '0';
-		map->player_y--;
-	//	print_window_matrice(map);
+		map->player_y -= 0.2 ;
 		ft_raycasting(map);
 	}
 }
 
 void	ft_go_down(t_map *map)
 {
-	printf("Matrice : %c \n",map->matrice[6][15]);
-	if (map->matrice[map->player_y + 1][map->player_x] == '0')
+	if (map->matrice[(int)(map->player_y + 0.2)][(int)map->player_x] == '0')
 	{
-		map->matrice[map->player_y + 1][map->player_x] = 'S';
-		map->matrice[map->player_y][map->player_x] = '0';
-		map->player_y++;
-		//print_window_matrice(map);
+		map->player_y += 0.2;
 		ft_raycasting(map);
 	}
 }
 
 void	ft_go_right(t_map *map)
 {
-	printf("Matrice : %c \n",map->matrice[6][15]);
-	if (map->matrice[map->player_y][map->player_x + 1] == '0')
+	if (map->matrice[(int)map->player_y][(int)(map->player_x + 0.2)] == '0')
 	{
-		map->matrice[map->player_y][map->player_x + 1] = 'S';
-		map->matrice[map->player_y][map->player_x] = '0';
-		map->player_x++;
-		//print_window_matrice(map);
+		map->player_x += 0.2;
 		ft_raycasting(map);
 	}
 }
 
 void	ft_go_left(t_map *map)
 {
-	printf("Matrice : %c \n",map->matrice[6][15]);
-	if (map->matrice[map->player_y][map->player_x - 1] == '0')
+	if (map->matrice[(int)map->player_y][(int)(map->player_x - 0.2)] == '0')
 	{
-		map->matrice[map->player_y][map->player_x - 1] = 'S';
-		map->matrice[map->player_y][map->player_x] = '0';
-		map->player_x--;
-		//print_window_matrice(map);
+		map->player_x -= 0.2;
 		ft_raycasting(map);
 	}
 }
@@ -171,11 +108,12 @@ int	hook(int keycode, t_map *map)
 void             window(t_map *map)
 {
 	map->vars.mlx = mlx_init(); 
-    map->vars.win = mlx_new_window(map->vars.mlx, 1300, 700, "Hello world!");
-    map->img.img = mlx_new_image(map->vars.mlx, 1300, 700);
+    map->vars.win = mlx_new_window(map->vars.mlx, map->resolution[0], map->resolution[1], "Hello world!");
+    map->img.img = mlx_new_image(map->vars.mlx, map->resolution[0], map->resolution[1]);
     map->img.addr = (int *)mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
+    ft_init_raycasting_1(map);
     ft_raycasting(map);
-	//mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
+	mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
     mlx_loop(map->vars.mlx);
 }
 int		main(int argc, char **argv)
@@ -185,7 +123,7 @@ int		main(int argc, char **argv)
 	int ret;
 
 	ret =  ft_parser(argc, argv, &map);
-	printf("Valeur de retour: %d \n",ret);
+/*	printf("Valeur de retour: %d \n",ret);
 	printf("Valeur de no : %s \n", map.no);
 	printf("Valeur de so : %s \n", map.so);
 	printf("Valeur de ea : %s \n", map.ea);
@@ -194,7 +132,8 @@ int		main(int argc, char **argv)
 	printf("Valeur de ceiling : %d / %d / %d \n", map.ceiling[0], map.ceiling[1], map.ceiling[2]);
 	printf("Valeur de floor : %d / %d / %d \n", map.floor[0], map.floor[1], map.floor[2]);
 	printf("Valeur de resolution : %d / %d \n", map.resolution[0], map.resolution[1]);
-	printf("Valeur de player_x : %d player_y : %d \n", map.player_x, map.player_y);
+	printf("Valeur de player_x : %d player_y : %d \n", map.player_x, map.player_y);*/
+	map.matrice[(int)map.player_y][(int)map.player_x] = '0';
 	if (ret)
 		window(&map);
 	ft_free_map(&map);

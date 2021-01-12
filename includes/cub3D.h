@@ -24,6 +24,36 @@ typedef struct s_vars {
 	void *win;
 }	t_vars;
 
+typedef struct s_raycasting
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int		mapX;
+	int		mapY;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	double		perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		width;
+	int		height;
+	int		x;
+}	t_ray;
+
 typedef struct s_map
 {
 	char **matrice;
@@ -35,10 +65,11 @@ typedef struct s_map
 	int	ceiling[3];
 	int	floor[3];
 	int	resolution[2];
-	int	player_x;
-	int	player_y;
+	double	player_x;
+	double	player_y;
 	t_vars	vars;
 	t_data	img;
+	t_ray	ray;
 }	t_map;
 
 typedef struct s_parsing
@@ -100,6 +131,6 @@ void	ft_init_parsing(t_parsing *parsing);
 void	free_split(char **str);
 void	ft_print_matrice(t_map *map);
 int		ft_raycasting(t_map *map);
-
+void	ft_init_raycasting_1(t_map *map);
 #endif
 
