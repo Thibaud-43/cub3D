@@ -15,7 +15,7 @@ OBJS			= $(SRCS:.c=.o)
 INC			=  -I includes/ -I libft/ -I $(MLX_DIR)
 CC			= clang
 RM			= rm -f
-CFLAGS			= -O3 -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS			= -O3 -Wall -Wextra -Werror -fsanitize=address
 MLX_DIR			= ./mlx
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 LIBFT_DIR		= ./libft

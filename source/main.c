@@ -40,46 +40,55 @@ void	ft_free_map(t_map *map)
 	ft_print_matrice(map);
 }
 
-void	ft_go_up(t_map *map)
+void	ft_go_forward(t_map *map)
 {
-	if (map->matrice[((int)(map->player_y - 0.2))][(int)map->player_x] == '0')
-	{
-		map->player_y -= 0.2 ;
-		ft_raycasting(map);
-	}
+	if (map->matrice[(int)(map->ray.posX + map->ray.dirX * map->moveSpeed)][(int)map->ray.posY] == '0')
+		map->ray.posX += map->ray.dirX * map->moveSpeed;
+	if (map->matrice[(int)map->ray.posX][(int)(map->ray.posY + map->ray.dirY * map->moveSpeed)] == '0')
+		map->ray.posY += map->ray.dirY * map->moveSpeed;
+	//ft_raycasting(map);
 }
 
 void	ft_go_down(t_map *map)
 {
-	if (map->matrice[(int)(map->player_y + 0.2)][(int)map->player_x] == '0')
-	{
-		map->player_y += 0.2;
-		ft_raycasting(map);
-	}
+	if (map->matrice[(int)(map->ray.posX - map->ray.dirX * map->moveSpeed)][(int)map->ray.posY] == '0')
+		map->ray.posX -= map->ray.dirX * map->moveSpeed;
+	if (map->matrice[(int)map->ray.posX][(int)(map->ray.posY - map->ray.dirY * map->moveSpeed)] == '0')
+		map->ray.posY -= map->ray.dirY * map->moveSpeed;
+	//ft_raycasting(map);
 }
 
-void	ft_go_right(t_map *map)
+void	ft_rotate_right(t_map *map)
 {
-	if (map->matrice[(int)map->player_y][(int)(map->player_x + 0.2)] == '0')
-	{
-		map->player_x += 0.2;
-		ft_raycasting(map);
-	}
+	double	olDirX;
+	double oldPlaneX;
+
+	olDirX = map->ray.dirX;
+	oldPlaneX = map->ray.planeX;
+	map->ray.dirX = map->ray.dirX * cos(-map->rotSpeed) - map->ray.dirY * sin(-map->rotSpeed);
+	map->ray.dirY = olDirX * sin(-map->rotSpeed) + map->ray.dirY * cos(-map->rotSpeed);
+	map->ray.planeX = map->ray.planeX * cos(-map->rotSpeed) - map->ray.planeY * sin(-map->rotSpeed);
+	map->ray.planeY = oldPlaneX * sin(-map->rotSpeed) + map->ray.planeY * cos(-map->rotSpeed);
+	//ft_raycasting(map);
 }
 
-void	ft_go_left(t_map *map)
+void	ft_rotate_left(t_map *map)
 {
-	if (map->matrice[(int)map->player_y][(int)(map->player_x - 0.2)] == '0')
-	{
-		map->player_x -= 0.2;
-		ft_raycasting(map);
-	}
+	double	olDirX;
+	double oldPlaneX;
+
+	olDirX = map->ray.dirX;
+	oldPlaneX = map->ray.planeX;
+	map->ray.dirX = map->ray.dirX * cos(map->rotSpeed) - map->ray.dirY * sin(map->rotSpeed);
+	map->ray.dirY = olDirX * sin(map->rotSpeed) + map->ray.dirY * cos(map->rotSpeed);
+	map->ray.planeX = map->ray.planeX * cos(map->rotSpeed) - map->ray.planeY * sin(map->rotSpeed);
+	map->ray.planeY = oldPlaneX * sin(map->rotSpeed) + map->ray.planeY * cos(map->rotSpeed);
+	//ft_raycasting(map);
+
 }
 
 int	hook(int keycode, t_map *map)
 {
-	(void)map;
-	printf("keycode : %d \n", keycode);
 	if (keycode == 32)
 	{
 		write(1, "Exiting ...", 12);
@@ -87,34 +96,41 @@ int	hook(int keycode, t_map *map)
 	}
 
 	if (keycode == 65362)
-	{
-		ft_go_up(map);		
-	}
+		map->keys.forward = 1;
 	if (keycode == 65364)
-	{
-		ft_go_down(map);	
-	}
+		map->keys.back = 1;
 	if (keycode == 65361)
-	{
-		
-		ft_go_left(map);	
-	}
+		map->keys.left = 1;
 	if (keycode == 65363)
-	{
-		ft_go_right(map);	
-	}
+		map->keys.right = 1;
 	return (1);
 }
+
+int	ft_release(int keycode, t_map *map)
+{
+	if (keycode == 65362)
+		map->keys.forward = 0;
+	if (keycode == 65364)
+		map->keys.back = 0;
+	if (keycode == 65361)
+		map->keys.left = 0;
+	if (keycode == 65363)
+		map->keys.right = 0;
+	return (1);
+}
+
 void             window(t_map *map)
 {
 	map->vars.mlx = mlx_init(); 
-    map->vars.win = mlx_new_window(map->vars.mlx, map->resolution[0], map->resolution[1], "Hello world!");
-    map->img.img = mlx_new_image(map->vars.mlx, map->resolution[0], map->resolution[1]);
-    map->img.addr = (int *)mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
-    ft_init_raycasting_1(map);
-    ft_raycasting(map);
+	map->vars.win = mlx_new_window(map->vars.mlx, map->resolution[0], map->resolution[1], "Hello world!");
+	map->img.img = mlx_new_image(map->vars.mlx, map->resolution[0], map->resolution[1]);
+	map->img.addr = (int *)mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
+	ft_init_raycasting_1(map);
+	ft_raycasting(map);
 	mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
-    mlx_loop(map->vars.mlx);
+	mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
+	mlx_hook(map->vars.win, 3, 1L<<1, ft_release, map);
+	mlx_loop(map->vars.mlx);
 }
 int		main(int argc, char **argv)
 {
@@ -134,6 +150,8 @@ int		main(int argc, char **argv)
 	printf("Valeur de resolution : %d / %d \n", map.resolution[0], map.resolution[1]);
 	printf("Valeur de player_x : %d player_y : %d \n", map.player_x, map.player_y);*/
 	map.matrice[(int)map.player_y][(int)map.player_x] = '0';
+	map.moveSpeed = 0.02;
+	map.rotSpeed = 0.01;
 	if (ret)
 		window(&map);
 	ft_free_map(&map);

@@ -16,6 +16,8 @@
 void	ft_init_raycasting_1(t_map *map)
 {
 	map->ray.dirX = -1;
+	map->ray.posY = map->player_x;
+	map->ray.posX = map->player_y;
 	map->ray.dirY = 0;
 	map->ray.planeX = 0;
 	map->ray.planeY = 0.66;
@@ -25,8 +27,6 @@ void	ft_init_raycasting_1(t_map *map)
 
 void	ft_init_raycasting_2(t_map *map)
 {
-	map->ray.posY = map->player_x;
-	map->ray.posX = map->player_y;
 	map->ray.cameraX = 0;
 	map->ray.rayDirX = 0;
 	map->ray.rayDirY = 0;
@@ -52,6 +52,8 @@ void 	ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
 	int i;
 
 	i = 0;
+	if (map->ray.lineheight == -2147483648)
+		return;
 	while (i < ray->drawstart)
 	{
 		map->img.addr[i * map->img.line_length / 4 + x] = 0x000000;
@@ -143,10 +145,20 @@ int		ft_raycasting(t_map	*map)
 		map->ray.drawend = map->ray.lineheight / 2 + map->ray.height / 2;
 		if (map->ray.drawend >= map->ray.height | map->ray.drawend == 0)
 			map->ray.drawend = map->ray.height - 1;
-
 		ft_draw_vertical_line(map->ray.x, &map->ray, map);
 		map->ray.x++;
 	}
 	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
+	if (map->keys.forward == 1)
+		ft_go_forward(map);
+	else if (map->keys.back == 1)
+		ft_go_down(map);
+	else if (map->keys.left == 1)
+		ft_rotate_left(map);
+	else if (map->keys.right == 1)
+		ft_rotate_right(map);
+
+
+
 	return (1);
 }

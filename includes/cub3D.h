@@ -23,7 +23,13 @@ typedef struct s_vars {
 	void *mlx;
 	void *win;
 }	t_vars;
-
+typedef struct s_keys 
+{
+	int	forward;
+	int	back;
+	int	right;
+	int	left;
+}	t_keys;
 typedef struct s_raycasting
 {
 	double posX;
@@ -67,9 +73,12 @@ typedef struct s_map
 	int	resolution[2];
 	double	player_x;
 	double	player_y;
+	double	moveSpeed;
+	double	rotSpeed;
 	t_vars	vars;
 	t_data	img;
 	t_ray	ray;
+	t_keys	keys;
 }	t_map;
 
 typedef struct s_parsing
@@ -132,5 +141,9 @@ void	free_split(char **str);
 void	ft_print_matrice(t_map *map);
 int		ft_raycasting(t_map *map);
 void	ft_init_raycasting_1(t_map *map);
+void	ft_go_forward(t_map *map);
+void	ft_go_down(t_map *map);
+void	ft_rotate_left(t_map *map);
+void	ft_rotate_right(t_map *map);
 #endif
 
