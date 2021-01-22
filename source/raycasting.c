@@ -13,6 +13,7 @@
 #include "cub3D.h"
 
 
+
 void	ft_init_raycasting_1(t_map *map)
 {
 	map->ray.dirX = -1;
@@ -75,7 +76,7 @@ void 	ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
 int		ft_raycasting(t_map	*map)
 {
 	map->ray.x = 0;
-	while (map->ray.x < 800)
+	while (map->ray.x < map->resolution[0])
 	{
 		ft_init_raycasting_2(map);
 		map->ray.cameraX = 2 * map->ray.x / ((double)map->ray.width) - 1;
@@ -151,12 +152,16 @@ int		ft_raycasting(t_map	*map)
 	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
 	if (map->keys.forward == 1)
 		ft_go_forward(map);
-	else if (map->keys.back == 1)
+	if (map->keys.back == 1)
 		ft_go_down(map);
-	else if (map->keys.left == 1)
+	if (map->keys.camleft == 1)
 		ft_rotate_left(map);
-	else if (map->keys.right == 1)
+	if (map->keys.camright == 1)
 		ft_rotate_right(map);
+	if (map->keys.left == 1)
+		ft_go_left(map);
+	if (map->keys.right == 1)
+		ft_go_right(map);
 
 
 

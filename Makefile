@@ -10,18 +10,30 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= source/raycasting.c source/main.c source/parsing.c source/parsing_args.c source/parsing_ceiling.c source/parsing_direction_ea.c source/parsing_direction_no.c source/parsing_direction_so.c source/parsing_direction_we.c source/parsing_floor.c source/parsing_map_1.c source/parsing_map_2.c source/parsing_map_3.c  source/parsing_resolution.c source/parsing_sprite.c source/parsing_utils.c 
+SRCS			= source/raycasting.c source/main.c source/parsing.c source/parsing_args.c source/parsing_ceiling.c source/parsing_direction_ea.c source/parsing_direction_no.c source/parsing_direction_so.c source/parsing_direction_we.c source/parsing_floor.c source/parsing_map_1.c source/parsing_map_2.c source/parsing_map_3.c  source/parsing_resolution.c source/parsing_sprite.c source/parsing_utils.c source/keyhook.c source/keyhook2.c
+
 OBJS			= $(SRCS:.c=.o)
+
 INC			=  -I includes/ -I libft/ -I $(MLX_DIR)
+
 CC			= clang
+
 RM			= rm -f
-CFLAGS			= -O3 -Wall -Wextra -Werror -fsanitize=address
-MLX_DIR			= ./mlx
-MLX			= $(MLX_DIR)/libmlx_Linux.a
+
+CFLAGS			= -O3 -Wall -Wextra -Werror #-fsanitize=address
+
+MLX_DIR			= ./mac #./mlx
+
+MLX			= $(MLX_DIR)/libmlx.a
+
 LIBFT_DIR		= ./libft
+
 LIBFT			= $(LIBFT_DIR)/libft.a
-LIBS			= -L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext
+
+LIBS			= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit -lm #-lmlx -lm -lbsd -lX11 -lXext
+
 HEADERS_DIR		= includes
+
 SRC_DIR			= source
 
 
@@ -40,7 +52,7 @@ $(MLX):
 				$(MAKE) -C $(MLX_DIR)
 clean:
 				$(MAKE) -C libft/ clean
-				$(MAKE) -C mlx/ clean
+				$(MAKE) -C mac/ clean #mlx/ clean
 				$(RM) $(OBJS)
 fclean:			clean
 				$(RM) $(NAME) 

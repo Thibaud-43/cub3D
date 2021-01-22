@@ -10,6 +10,13 @@
 #include <fcntl.h>
 #include <string.h>
 #include <math.h>
+#define FORWARD 13
+#define BACK 1
+#define LEFT 0
+#define RIGHT 2
+#define CAM_LEFT 123
+#define CAM_RIGHT 124
+#define EXIT 53
 
 typedef struct  s_data {
     void        *img;
@@ -23,13 +30,17 @@ typedef struct s_vars {
 	void *mlx;
 	void *win;
 }	t_vars;
+
 typedef struct s_keys 
 {
 	int	forward;
 	int	back;
-	int	right;
+	int	camright;
+	int	camleft;
 	int	left;
+	int	right;
 }	t_keys;
+
 typedef struct s_raycasting
 {
 	double posX;
@@ -126,15 +137,15 @@ int	ft_parse_floor(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_ea(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_no(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_so(t_parsing *parsing, t_map *map);
-int	ft_parse_direction_we(t_parsing *parsing, t_map *map);
+int		ft_parse_direction_we(t_parsing *parsing, t_map *map);
 void	ft_check_ch_map(t_parsing *parsing);
-int	ft_parse_map(t_parsing *parsing, int k);
-int	ft_init_matrice(t_parsing *parsing, t_map *map);
-int	ft_parse_map_advanced(t_parsing *parsing, char **argv, t_map *map);
+int		ft_parse_map(t_parsing *parsing, int k);
+int		ft_init_matrice(t_parsing *parsing, t_map *map);
+int		ft_parse_map_advanced(t_parsing *parsing, char **argv, t_map *map);
 void	ft_check_comformity(int i, int k, t_map *map, int *error);
 void	ft_parse_map_advanced_2(t_parsing *parsing, t_map *map);
-int	ft_parse_resolution(t_parsing *parsing, t_map *map);
-int	ft_parse_sprite(t_parsing *parsing, t_map *map);
+int		ft_parse_resolution(t_parsing *parsing, t_map *map);
+int		ft_parse_sprite(t_parsing *parsing, t_map *map);
 void	message_map_invalid(t_parsing *parsing, char *str);
 void	ft_init_parsing(t_parsing *parsing);
 void	free_split(char **str);
@@ -145,5 +156,9 @@ void	ft_go_forward(t_map *map);
 void	ft_go_down(t_map *map);
 void	ft_rotate_left(t_map *map);
 void	ft_rotate_right(t_map *map);
+void	ft_go_left(t_map *map);
+void	ft_go_right(t_map *map);
+int		hook(int keycode, t_map *map);
+int		ft_release(int keycode, t_map *map);
 #endif
 
