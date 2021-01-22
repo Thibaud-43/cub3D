@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	ft_initialize_map(t_map *map)
+void		ft_initialize_map(t_map *map)
 {
 	map->matrice = NULL;
 	map->no = NULL;
@@ -36,7 +36,7 @@ void	ft_initialize_map(t_map *map)
 	map->keys.right = 0;
 }
 
-void	ft_free_map(t_map *map)
+void		ft_free_map(t_map *map)
 {
 	free(map->no);
 	free(map->so);
@@ -46,27 +46,30 @@ void	ft_free_map(t_map *map)
 	ft_print_matrice(map);
 }
 
-void             window(t_map *map)
+void		window(t_map *map)
 {
-	map->vars.mlx = mlx_init(); 
-	map->vars.win = mlx_new_window(map->vars.mlx, map->resolution[0], map->resolution[1], "Hello world!");
-	map->img.img = mlx_new_image(map->vars.mlx, map->resolution[0], map->resolution[1]);
-	map->img.addr = (int *)mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
+	map->vars.mlx = mlx_init();
+	map->vars.win = mlx_new_window(map->vars.mlx,
+	map->resolution[0], map->resolution[1], "Hello world!");
+	map->img.img = mlx_new_image(map->vars.mlx,
+	map->resolution[0], map->resolution[1]);
+	map->img.addr = (int *)mlx_get_data_addr(map->img.img,
+	&map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
 	ft_init_raycasting_1(map);
 	ft_raycasting(map);
-	mlx_hook(map->vars.win, 2, 1L<<0, hook, map);
+	mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
 	mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
-	mlx_hook(map->vars.win, 3, 1L<<1, ft_release, map);
+	mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
 	mlx_loop(map->vars.mlx);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_map	map;
-	ft_initialize_map(&map);
-	int ret;
+	int		ret;
 
-	ret =  ft_parser(argc, argv, &map);
+	ft_initialize_map(&map);
+	ret = ft_parser(argc, argv, &map);
 	map.matrice[(int)map.player_y][(int)map.player_x] = '0';
 	map.moveSpeed = 0.1;
 	map.rotSpeed = 0.05;
@@ -75,4 +78,3 @@ int		main(int argc, char **argv)
 	ft_free_map(&map);
 	return (1);
 }
-

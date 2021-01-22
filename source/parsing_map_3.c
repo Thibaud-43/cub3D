@@ -70,6 +70,12 @@ void		ft_check_comformity(int i, int k, t_map *map, int *error)
 	ft_check_horizontal(k, i, map, error);
 }
 
+void		ft_set_player_pos(t_map *map, int i, int k)
+{
+	map->player_x = (double)k + 0.5;
+	map->player_y = (double)i + 0.5;
+}
+
 void		ft_parse_map_advanced_2(t_parsing *parsing, t_map *map)
 {
 	int i;
@@ -87,12 +93,9 @@ void		ft_parse_map_advanced_2(t_parsing *parsing, t_map *map)
 			| map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
 			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
 				ft_check_comformity(i, k, map, &error);
-			if ( map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
+			if (map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
 			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
-			{
-				map->player_x = (double)k + 0.5;
-				map->player_y = (double)i + 0.5;
-			}
+				ft_set_player_pos(map, i, k);
 			k++;
 		}
 		i++;

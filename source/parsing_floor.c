@@ -27,7 +27,8 @@ void		ft_check_coma_floor(t_parsing *parsing)
 		"Error\n il y a trop de virgules dans FLOOR");
 }
 
-void		ft_parse_floor_2(t_parsing *parsing, char **floor, char **rgb, t_map *map)
+void		ft_parse_floor_2(t_parsing *parsing,
+char **floor, char **rgb, t_map *map)
 {
 	if ((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing,

@@ -14,25 +14,27 @@
 
 void	ft_rotate_left(t_map *map)
 {
-	double	olDirX;
-	double oldPlaneX;
+	double	oldirx;
+	double	oldplanex;
 
-	olDirX = map->ray.dirX;
-	oldPlaneX = map->ray.planeX;
-	map->ray.dirX = map->ray.dirX * cos(map->rotSpeed) - map->ray.dirY * sin(map->rotSpeed);
-	map->ray.dirY = olDirX * sin(map->rotSpeed) + map->ray.dirY * cos(map->rotSpeed);
-	map->ray.planeX = map->ray.planeX * cos(map->rotSpeed) - map->ray.planeY * sin(map->rotSpeed);
-	map->ray.planeY = oldPlaneX * sin(map->rotSpeed) + map->ray.planeY * cos(map->rotSpeed);
-	
-
+	oldirx = map->ray.dirX;
+	oldplanex = map->ray.planeX;
+	map->ray.dirX = map->ray.dirX * cos(map->rotSpeed)
+	- map->ray.dirY * sin(map->rotSpeed);
+	map->ray.dirY = oldirx * sin(map->rotSpeed)
+	+ map->ray.dirY * cos(map->rotSpeed);
+	map->ray.planeX = map->ray.planeX * cos(map->rotSpeed)
+	- map->ray.planeY * sin(map->rotSpeed);
+	map->ray.planeY = oldplanex * sin(map->rotSpeed)
+	+ map->ray.planeY * cos(map->rotSpeed);
 }
 
-int	hook(int keycode, t_map *map)
+int		hook(int keycode, t_map *map)
 {
 	if (keycode == EXIT)
 	{
 		write(1, "Exiting ...", 12);
- 	 	exit(0);
+		exit(0);
 	}
 	printf("keycode : %d \n", keycode);
 	if (keycode == FORWARD)
@@ -50,7 +52,7 @@ int	hook(int keycode, t_map *map)
 	return (1);
 }
 
-int	ft_release(int keycode, t_map *map)
+int		ft_release(int keycode, t_map *map)
 {
 	if (keycode == FORWARD)
 		map->keys.forward = 0;

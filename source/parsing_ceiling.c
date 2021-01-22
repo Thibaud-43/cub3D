@@ -27,7 +27,8 @@ void		ft_check_coma(t_parsing *parsing)
 		"Error\n il y a trop de virgules dans CEILING");
 }
 
-void		ft_parse_ceiling_2(t_parsing *parsing, char **ceiling, char **rgb, t_map *map)
+void		ft_parse_ceiling_2(t_parsing *parsing,
+char **ceiling, char **rgb, t_map *map)
 {
 	if ((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing,

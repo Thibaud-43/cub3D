@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= source/raycasting.c source/main.c source/parsing.c source/parsing_args.c source/parsing_ceiling.c source/parsing_direction_ea.c source/parsing_direction_no.c source/parsing_direction_so.c source/parsing_direction_we.c source/parsing_floor.c source/parsing_map_1.c source/parsing_map_2.c source/parsing_map_3.c  source/parsing_resolution.c source/parsing_sprite.c source/parsing_utils.c source/keyhook.c source/keyhook2.c
+SRCS			= source/raycasting.c source/raycasting2.c source/main.c source/parsing.c source/parsing_args.c source/parsing_ceiling.c source/parsing_direction_ea.c source/parsing_direction_no.c source/parsing_direction_so.c source/parsing_direction_we.c source/parsing_floor.c source/parsing_map_1.c source/parsing_map_2.c source/parsing_map_3.c  source/parsing_resolution.c source/parsing_sprite.c source/parsing_utils.c source/keyhook.c source/keyhook2.c
 
 OBJS			= $(SRCS:.c=.o)
 

@@ -160,5 +160,10 @@ void	ft_go_left(t_map *map);
 void	ft_go_right(t_map *map);
 int		hook(int keycode, t_map *map);
 int		ft_release(int keycode, t_map *map);
+void		ft_init_raycasting_1(t_map *map);
+void		ft_init_raycasting_2(t_map *map);
+void		ft_init_raycasting_3(t_map *map);
+void		ft_init_deltadist(t_map *map);
+void		ft_init_dist(t_map *map);
 #endif
 

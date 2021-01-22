@@ -12,7 +12,8 @@
 
 #include "cub3D.h"
 
-void	ft_parse_resolution_2(t_parsing *parsing, char **resolution, int i, t_map *map)
+void	ft_parse_resolution_2(t_parsing *parsing,
+char **resolution, int i, t_map *map)
 {
 	if (parsing->is_valid)
 	{
