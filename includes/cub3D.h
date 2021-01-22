@@ -26,6 +26,14 @@ typedef struct  s_data {
     int         endian;
 }               t_data;
 
+typedef struct s_texture
+{
+	t_data	*img;
+	int		*addr;
+	int		height;
+	int		width;
+}	t_texture;
+
 typedef struct s_vars {
 	void *mlx;
 	void *win;
@@ -90,6 +98,7 @@ typedef struct s_map
 	t_data	img;
 	t_ray	ray;
 	t_keys	keys;
+	t_texture texture[5];
 }	t_map;
 
 typedef struct s_parsing
@@ -165,5 +174,6 @@ void		ft_init_raycasting_2(t_map *map);
 void		ft_init_raycasting_3(t_map *map);
 void		ft_init_deltadist(t_map *map);
 void		ft_init_dist(t_map *map);
+void		ft_texture(t_map *map);
 #endif
 

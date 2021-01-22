@@ -50,16 +50,17 @@ void		window(t_map *map)
 {
 	map->vars.mlx = mlx_init();
 	map->vars.win = mlx_new_window(map->vars.mlx,
-	map->resolution[0], map->resolution[1], "Hello world!");
+	map->resolution[0], map->resolution[1], "Cub3D");
 	map->img.img = mlx_new_image(map->vars.mlx,
 	map->resolution[0], map->resolution[1]);
 	map->img.addr = (int *)mlx_get_data_addr(map->img.img,
 	&map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
 	ft_init_raycasting_1(map);
-	ft_raycasting(map);
-	mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
-	mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
-	mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
+	//ft_raycasting(map);
+	//mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
+	//mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
+	//mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
+	ft_texture(map);
 	mlx_loop(map->vars.mlx);
 }
 
@@ -68,11 +69,13 @@ int			main(int argc, char **argv)
 	t_map	map;
 	int		ret;
 
+	
 	ft_initialize_map(&map);
 	ret = ft_parser(argc, argv, &map);
 	map.matrice[(int)map.player_y][(int)map.player_x] = '0';
 	map.moveSpeed = 0.1;
 	map.rotSpeed = 0.05;
+	
 	if (ret)
 		window(&map);
 	ft_free_map(&map);

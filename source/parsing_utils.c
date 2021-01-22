@@ -29,6 +29,7 @@ void	ft_init_parsing(t_parsing *parsing)
 	parsing->ea_encountered = 0;
 	parsing->s_encountered = 0;
 	parsing->c_encountered = 0;
+	parsing->f_encountered = 0;
 	parsing->map_encountered = 0;
 	parsing->line_num_begin_map = 0;
 	parsing->line_map_len_max = 0;
