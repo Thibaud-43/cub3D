@@ -22,7 +22,7 @@ RM			= rm -f
 
 CFLAGS			= -O3 -Wall -Wextra -Werror #-fsanitize=address
 
-MLX_DIR			= ./mac #./mlx
+MLX_DIR			= ./linux #./mac
 
 MLX			= $(MLX_DIR)/libmlx.a
 
@@ -30,7 +30,8 @@ LIBFT_DIR		= ./libft
 
 LIBFT			= $(LIBFT_DIR)/libft.a
 
-LIBS			= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit -lm #-lmlx -lm -lbsd -lX11 -lXext
+LIBS			= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext
+#-lmlx -framework OpenGL -framework AppKit -lm #-lmlx -lm -lbsd -lX11 -lXext
 
 HEADERS_DIR		= includes
 

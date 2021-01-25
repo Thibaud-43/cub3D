@@ -10,13 +10,22 @@
 #include <fcntl.h>
 #include <string.h>
 #include <math.h>
-#define FORWARD 13
+
+#define FORWARD 122
+#define BACK 115
+#define LEFT 113
+#define RIGHT 100
+#define CAM_LEFT 65361
+#define CAM_RIGHT 65363
+#define EXIT 65307
+
+/*#define FORWARD 13
 #define BACK 1
 #define LEFT 0
 #define RIGHT 2
 #define CAM_LEFT 123
 #define CAM_RIGHT 124
-#define EXIT 53
+#define EXIT 53*/
 
 typedef struct  s_data {
     void        *img;
@@ -32,6 +41,12 @@ typedef struct s_texture
 	int		*addr;
 	int		height;
 	int		width;
+	int		textNum;
+	double		wallX;
+	int		texX;
+	int		texY;
+	double		step;
+	double		texPos;
 }	t_texture;
 
 typedef struct s_vars {
