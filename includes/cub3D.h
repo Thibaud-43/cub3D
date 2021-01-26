@@ -11,21 +11,50 @@
 #include <string.h>
 #include <math.h>
 
-#define FORWARD 122
+/*#define FORWARD 122
 #define BACK 115
 #define LEFT 113
 #define RIGHT 100
 #define CAM_LEFT 65361
 #define CAM_RIGHT 65363
-#define EXIT 65307
+#define EXIT 65307*/
 
-/*#define FORWARD 13
+#define FORWARD 13
 #define BACK 1
 #define LEFT 0
 #define RIGHT 2
 #define CAM_LEFT 123
 #define CAM_RIGHT 124
-#define EXIT 53*/
+#define EXIT 53
+
+typedef struct s_pos
+{
+	double	x;
+	double	y;
+}		t_pos;
+
+typedef struct s_sprite
+{
+	int		nbr;
+	double	*dist;
+	t_pos	*pos;
+	double	spriteX;
+	double	spriteY;
+	double	invDet;
+	double	transformX;
+	double	transformY;
+	int		spriteScreenX;
+	int		spriteHeight;
+	int		spriteWidth;
+	int		drawStartX;
+	int		drawEndX;
+	int		drawStartY;
+	int		drawEndY;
+	int		texX;
+	int		texY;
+	int		d;
+	double	*zbuffer;
+}	t_sprite;
 
 typedef struct  s_data {
     void        *img;
@@ -114,6 +143,7 @@ typedef struct s_map
 	t_ray	ray;
 	t_keys	keys;
 	t_texture texture[5];
+	t_sprite spr;
 }	t_map;
 
 typedef struct s_parsing
@@ -190,5 +220,8 @@ void		ft_init_raycasting_3(t_map *map);
 void		ft_init_deltadist(t_map *map);
 void		ft_init_dist(t_map *map);
 void		ft_texture(t_map *map);
+int			ft_init_sprites(t_map *map);
+void		ft_order_sprites(t_map *map);
+void		ft_sprites(t_map *map);
 #endif
 

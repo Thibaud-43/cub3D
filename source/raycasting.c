@@ -28,7 +28,7 @@ void		ft_project_ray(t_map *map)
 			map->ray.mapY += map->ray.stepy;
 			map->ray.side = 1;
 		}
-		if (map->matrice[map->ray.mapX][map->ray.mapY] != '0')
+		if (map->matrice[map->ray.mapX][map->ray.mapY] != '0' &&  map->matrice[map->ray.mapX][map->ray.mapY] != '2')
 			map->ray.hit = 1;
 	}
 	if (map->ray.side == 0)
@@ -138,8 +138,10 @@ int			ft_raycasting(t_map *map)
 		ft_project_ray(map);
 		ft_init_draw(map);
 		ft_draw_vertical_line(map->ray.x, &map->ray, map);
+		map->spr.zbuffer[map->ray.x] = map->ray.perpwalldist;
 		map->ray.x++;
 	}
+	ft_sprites(map);
 	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
 	ft_analyse_key(map);
 	return (1);

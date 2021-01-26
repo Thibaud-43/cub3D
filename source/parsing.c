@@ -120,5 +120,7 @@ int				ft_parser(int argc, char **argv, t_map *map)
 	if (parsing.is_valid == 1)
 		ft_parse_map_advanced(&parsing, argv, map);
 	close(fd);
+	if (ft_init_sprites(map) == 0)
+		return (0);
 	return (parsing.is_valid);
 }

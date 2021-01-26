@@ -43,6 +43,9 @@ void		ft_free_map(t_map *map)
 	free(map->ea);
 	free(map->we);
 	free(map->sprite);
+	free(map->spr.pos);
+	free(map->spr.dist);
+	free(map->spr.zbuffer);
 	ft_print_matrice(map);
 }
 
