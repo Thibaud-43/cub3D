@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:26:50 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/09 10:57:16 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:48:10 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_parser_4(t_parsing *parsing, int *i, int *k, t_map *map)
 	}
 	if (parsing->lign[*i] == '0' | parsing->lign[*i] == '1')
 	{
-		if (!(ft_parse_map(parsing, *k)))
+		if (!(ft_parse_map(map, parsing, *k)))
 			return (0);
 	}
 	if (parsing->param_line_valid == 0)
@@ -118,9 +118,11 @@ int				ft_parser(int argc, char **argv, t_map *map)
 	free(parsing.lign);
 	ft_all_params(&parsing);
 	if (parsing.is_valid == 1)
+	{
 		ft_parse_map_advanced(&parsing, argv, map);
+		if (ft_init_sprites(map) == 0)
+			return (0);
+	}
 	close(fd);
-	if (ft_init_sprites(map) == 0)
-		return (0);
 	return (parsing.is_valid);
 }

@@ -6,20 +6,63 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:56:11 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:11:53 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+void		ft_player_south(t_map *map)
+{
+	if (map->direction == 'S')
+	{
+		map->ray.dirY = 0;
+		map->ray.dirX = 1;
+		map->ray.planeX = 0;
+		map->ray.planeY = -0.66;
+	}
+}
+
+void		ft_player_east(t_map *map)
+{
+	if (map->direction == 'E')
+	{
+		map->ray.dirY = 1;
+		map->ray.dirX = 0;
+		map->ray.planeX = 0.66;
+		map->ray.planeY = 0;
+	}
+}
+
+void		ft_player_west(t_map *map)
+{
+	if (map->direction == 'W')
+	{
+		map->ray.dirY = -1;
+		map->ray.dirX = 0;
+		map->ray.planeX = -0.66;
+		map->ray.planeY = 0;
+	}
+}
+void		ft_player_north(t_map *map)
+{
+	if (map->direction == 'N')
+	{
+		map->ray.dirY = 0;
+		map->ray.dirX = -1;
+		map->ray.planeX = 0;
+		map->ray.planeY = 0.66;
+	}
+}
+
 void		ft_init_raycasting_1(t_map *map)
 {
-	map->ray.dirX = -1;
 	map->ray.posY = map->player_x;
 	map->ray.posX = map->player_y;
-	map->ray.dirY = 0;
-	map->ray.planeX = 0;
-	map->ray.planeY = 0.66;
+	ft_player_south(map);
+	ft_player_west(map);
+	ft_player_north(map);
+	ft_player_east(map);
 	map->ray.width = map->resolution[0];
 	map->ray.height = map->resolution[1];
 }
@@ -43,8 +86,6 @@ void		ft_init_raycasting_2(t_map *map)
 	map->ray.lineheight = 0;
 	map->ray.drawstart = 0;
 	map->ray.drawend = 0;
-	map->ray.width = map->resolution[0];
-	map->ray.height = map->resolution[1];
 }
 
 void		ft_init_raycasting_3(t_map *map)
@@ -80,7 +121,7 @@ void		ft_init_dist(t_map *map)
 	{
 		map->ray.stepx = -1;
 		map->ray.sidedistx = (map->ray.posX - map->ray.mapX)
-		* map->ray.deltadistx;
+		   	* map->ray.deltadistx;
 	}
 	else
 	{

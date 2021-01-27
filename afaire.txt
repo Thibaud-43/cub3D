@@ -1,0 +1,10 @@
+- check .xpm
+- resolution max
+- flag --save
+- gerer les OS
+- check free()
+- check leaks
+- mettre en forme
+- mettre a la norme
+- rdme github
+ 

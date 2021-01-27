@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:58:46 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:51:21 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void		ft_initialize_map(t_map *map)
 {
 	map->matrice = NULL;
+	map->direction = 0;
 	map->no = NULL;
 	map->so = NULL;
 	map->ea = NULL;
@@ -45,13 +46,29 @@ void		ft_free_map(t_map *map)
 	free(map->sprite);
 	free(map->spr.pos);
 	free(map->spr.dist);
-	free(map->spr.zbuffer);
-	ft_print_matrice(map);
+}
+
+void		resolution_ms_rs(t_map *map)
+{
+	int		tmpW;
+	int		tmpH;
+
+	tmpW = 0;
+	tmpH = 0;
+	/*mlx_get_screen_size(map->vars.mlx, &tmpW, &tmpH);
+	if (tmpW < map->resolution[0])
+		map->resolution[0] = tmpW;
+	if (tmpH < map->resolution[1])
+		map->resolution[1] = tmpH;*/
+	map->moveSpeed = MOVESPEED;
+	map->rotSpeed = ROTSPEED;
 }
 
 void		window(t_map *map)
 {
+	map->matrice[(int)map->player_y][(int)map->player_x] = '0';
 	map->vars.mlx = mlx_init();
+	resolution_ms_rs(map);
 	map->vars.win = mlx_new_window(map->vars.mlx,
 	map->resolution[0], map->resolution[1], "Cub3D");
 	map->img.img = mlx_new_image(map->vars.mlx,
@@ -70,17 +87,13 @@ void		window(t_map *map)
 int			main(int argc, char **argv)
 {
 	t_map	map;
-	int		ret;
 
-	
 	ft_initialize_map(&map);
-	ret = ft_parser(argc, argv, &map);
-	map.matrice[(int)map.player_y][(int)map.player_x] = '0';
-	map.moveSpeed = 0.05;
-	map.rotSpeed = 0.02;
-	
-	if (ret)
+	if ((ft_parser(argc, argv, &map)))
+	{
 		window(&map);
+		ft_print_matrice(&map);
+	}
 	ft_free_map(&map);
 	return (1);
 }

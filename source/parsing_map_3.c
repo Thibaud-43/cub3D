@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:22:09 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 17:35:56 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:32:28 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void		ft_parse_map_advanced_2(t_parsing *parsing, t_map *map)
 		{
 			if (map->matrice[i][k] == '0' | map->matrice[i][k] == '2'
 			| map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
-			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
+			| map->matrice[i][k] == 'W' | map->matrice[i][k] == 'E')
 				ft_check_comformity(i, k, map, &error);
 			if (map->matrice[i][k] == 'N' | map->matrice[i][k] == 'S'
-			| map->matrice[i][k] == 'O' | map->matrice[i][k] == 'E')
+			| map->matrice[i][k] == 'W' | map->matrice[i][k] == 'E')
 				ft_set_player_pos(map, i, k);
 			k++;
 		}

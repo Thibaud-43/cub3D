@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:56:11 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:34:53 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void		ft_project_ray(t_map *map)
 	}
 	if (map->ray.side == 0)
 		map->ray.perpwalldist = (map->ray.mapX - map->ray.posX +
-		(1 - map->ray.stepx) / 2) / map->ray.rayDirX;
+		(1 - (double)map->ray.stepx) / 2) / map->ray.rayDirX;
 	else
 		map->ray.perpwalldist = (map->ray.mapY - map->ray.posY +
-		(1 - map->ray.stepy) / 2) / map->ray.rayDirY;
+		(1 - (double)map->ray.stepy) / 2) / map->ray.rayDirY;
 }
 
 void		ft_init_draw(t_map *map)
@@ -46,7 +46,7 @@ void		ft_init_draw(t_map *map)
 	if (map->ray.drawstart < 0)
 		map->ray.drawstart = 0;
 	map->ray.drawend = map->ray.lineheight / 2 + map->ray.height / 2;
-	if (map->ray.drawend >= map->ray.height | map->ray.drawend == 0)
+	if (map->ray.drawend >= map->ray.height || map->ray.drawend < 0)
 		map->ray.drawend = map->ray.height - 1;
 }
 
@@ -89,23 +89,27 @@ void		ft_draw_texture(int *i, int x, t_map *map)
 	}
 }
 
+int		create_trgb(int t, int r, int g, int b)
+{
+	return(t << 24 | r << 16 | g << 8 | b);
+}
+
 void		ft_draw_vertical_line(int x, t_ray *ray, t_map *map)
 {
 	int i;
 
 	i = 0;
-	ft_init_texture(map);
 	if (map->ray.lineheight == -2147483648)
-		return ;
+		return ;	
 	while (i < ray->drawstart)
 	{
-		map->img.addr[i * map->img.line_length / 4 + x] = 0x000000;
+		map->img.addr[i * map->img.line_length / 4 + x] = create_trgb(0, map->ceiling[0], map->ceiling[1], map->ceiling[2]);
 		i++;
 	}
 	ft_draw_texture(&i, x, map);
 	while (i < ray->height)
 	{
-		map->img.addr[i * map->img.line_length / 4 + x] = 0x03FCCA;
+		map->img.addr[i * map->img.line_length / 4 + x] = create_trgb(0, map->floor[0], map->floor[1], map->floor[2]);
 		i++;
 	}
 }
@@ -138,7 +142,6 @@ int			ft_raycasting(t_map *map)
 		ft_project_ray(map);
 		ft_init_draw(map);
 		ft_draw_vertical_line(map->ray.x, &map->ray, map);
-		map->spr.zbuffer[map->ray.x] = map->ray.perpwalldist;
 		map->ray.x++;
 	}
 	ft_sprites(map);

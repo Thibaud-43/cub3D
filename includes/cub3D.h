@@ -26,6 +26,9 @@
 #define CAM_LEFT 123
 #define CAM_RIGHT 124
 #define EXIT 53
+#define MOVESPEED 0.05
+#define ROTSPEED 0.02
+
 
 typedef struct s_pos
 {
@@ -53,7 +56,6 @@ typedef struct s_sprite
 	int		texX;
 	int		texY;
 	int		d;
-	double	*zbuffer;
 }	t_sprite;
 
 typedef struct  s_data {
@@ -138,6 +140,7 @@ typedef struct s_map
 	double	player_y;
 	double	moveSpeed;
 	double	rotSpeed;
+	char	direction;
 	t_vars	vars;
 	t_data	img;
 	t_ray	ray;
@@ -192,8 +195,8 @@ int	ft_parse_direction_ea(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_no(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_so(t_parsing *parsing, t_map *map);
 int		ft_parse_direction_we(t_parsing *parsing, t_map *map);
-void	ft_check_ch_map(t_parsing *parsing);
-int		ft_parse_map(t_parsing *parsing, int k);
+void	ft_check_ch_map(t_map *map, t_parsing *parsing);
+int		ft_parse_map(t_map *map, t_parsing *parsing, int k);
 int		ft_init_matrice(t_parsing *parsing, t_map *map);
 int		ft_parse_map_advanced(t_parsing *parsing, char **argv, t_map *map);
 void	ft_check_comformity(int i, int k, t_map *map, int *error);

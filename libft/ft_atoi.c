@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 12:27:36 by trouchon          #+#    #+#             */
-/*   Updated: 2020/11/17 16:12:05 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:57:42 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_atoi(const char *str)
 {
 	int		i;
-	long	nb;
+	long long	nb;
 	int		sign;
 
 	i = 0;
@@ -35,7 +35,7 @@ int		ft_atoi(const char *str)
 		if (sign == 1 && nb > 922337203685477580)
 			return (-1);
 		else if (nb > 922337203685477580)
-			return (0);
+			return (-2);
 	}
 	return (nb * sign);
 }

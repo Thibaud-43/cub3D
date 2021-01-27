@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 17:00:47 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:00:14 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char **ceiling, char **rgb, t_map *map)
 		| (map->ceiling[1] < 0 | map->ceiling[1] > 255)
 		| (map->ceiling[2] < 0 | map->ceiling[2] > 255))
 		message_map_invalid(parsing,
-		"Erro\n Le code rb n'est pas valide \n");
+		"Error\n Le code rgb n'est pas valide \n");
 }
 
 int			ft_parse_ceiling(t_parsing *parsing, t_map *map)
