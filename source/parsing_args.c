@@ -6,13 +6,13 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:15:51 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 11:30:50 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:03:32 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void		ft_check_args(t_parsing *parsing, int argc, char **argv)
+void		ft_check_args(t_map *map, t_parsing *parsing, int argc, char **argv)
 {
 	if (argc < 2)
 		message_map_invalid(parsing,
@@ -20,7 +20,7 @@ void		ft_check_args(t_parsing *parsing, int argc, char **argv)
 	else if (argc > 3)
 		message_map_invalid(parsing,
 		"Error \n Le nombre d'argument est trop grand.\n");
-	else if (argc == 3 && ft_check_save_flag(argv[2]) == 0)
+	else if (argc == 3 && ft_check_save_flag(map, argv[2]) == 0)
 		message_map_invalid(parsing,
 		"Error \n Le troisième argument n'est pas reconnu.\n");
 	else if (ft_checks_cub_format(argv[1]) == 0)
@@ -65,10 +65,13 @@ void		ft_all_params(t_parsing *parsing)
 	}
 }
 
-int			ft_check_save_flag(char *str)
+int			ft_check_save_flag(t_map *map, char *str)
 {
 	if (str[0] == '-' && str[1] == '-' && str[2] == 's' &&
 			str[3] == 'a' && str[4] == 'v' && str[5] == 'e' && str[6] == 0)
+	{
+		map->save = 1;
 		return (1);
+	}
 	return (0);
 }

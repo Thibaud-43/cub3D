@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:26:50 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/27 13:48:10 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:04:24 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int				ft_parser(int argc, char **argv, t_map *map)
 	ret = 1;
 	k = 0;
 	ft_init_parsing(&parsing);
-	ft_check_args(&parsing, argc, argv);
+	ft_check_args(map, &parsing, argc, argv);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
 	while ((ret = get_next_line(fd, &parsing.lign)))

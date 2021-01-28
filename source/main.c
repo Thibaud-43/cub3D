@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/27 13:51:21 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:17:01 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		ft_initialize_map(t_map *map)
 	map->keys.camleft = 0;
 	map->keys.left = 0;
 	map->keys.right = 0;
+	map->save = 0;
 }
 
 void		ft_free_map(t_map *map)
@@ -78,10 +79,13 @@ void		window(t_map *map)
 	ft_init_raycasting_1(map);
 	ft_texture(map);
 	ft_raycasting(map);
-	mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
-	mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
-	mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
-	mlx_loop(map->vars.mlx);
+	if (map->save == 0)
+	{
+		mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
+		mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
+		mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
+		mlx_loop(map->vars.mlx);
+	}
 }
 
 int			main(int argc, char **argv)
@@ -91,6 +95,7 @@ int			main(int argc, char **argv)
 	ft_initialize_map(&map);
 	if ((ft_parser(argc, argv, &map)))
 	{
+		while (1);
 		window(&map);
 		ft_print_matrice(&map);
 	}

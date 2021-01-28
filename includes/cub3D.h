@@ -141,6 +141,7 @@ typedef struct s_map
 	double	moveSpeed;
 	double	rotSpeed;
 	char	direction;
+	int		save;
 	t_vars	vars;
 	t_data	img;
 	t_ray	ray;
@@ -185,10 +186,10 @@ typedef struct s_normi
 }	t_normi;
 
 int ft_parser(int argc, char **argv, t_map *map);
-void	ft_check_args(t_parsing *parsing, int argc, char **argv);
+void	ft_check_args(t_map *map, t_parsing *parsing, int argc, char **argv);
 int	ft_checks_cub_format(char *str);
 void	ft_all_params( t_parsing *parsing);
-int	ft_check_save_flag(char *str);
+int	ft_check_save_flag(t_map *map, char *str);
 int	ft_parse_ceiling(t_parsing *parsing, t_map *map);
 int	ft_parse_floor(t_parsing *parsing, t_map *map);
 int	ft_parse_direction_ea(t_parsing *parsing, t_map *map);
@@ -226,5 +227,7 @@ void		ft_texture(t_map *map);
 int			ft_init_sprites(t_map *map);
 void		ft_order_sprites(t_map *map);
 void		ft_sprites(t_map *map);
+void		save_bmp(t_map *map);
+void		ft_free_map(t_map *map);
 #endif
 

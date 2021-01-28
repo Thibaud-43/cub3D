@@ -3,7 +3,7 @@
 - flag --save
 - gerer les OS
 - check free()
-- check leaks
+- check leaks --> free quqnd exit;
 - mettre en forme
 - mettre a la norme
 - rdme github

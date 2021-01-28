@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/27 13:34:53 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:43:28 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,12 @@ int			ft_raycasting(t_map *map)
 		map->ray.x++;
 	}
 	ft_sprites(map);
-	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
-	ft_analyse_key(map);
+	if (map->save == 1)
+		save_bmp(map);
+	else
+	{
+		mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->img.img, 0, 0);
+		ft_analyse_key(map);
+	}
 	return (1);
 }

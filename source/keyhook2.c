@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/12 11:58:46 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:15:32 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		hook(int keycode, t_map *map)
 		write(1, "Exiting ...", 12);
 		exit(0);
 	}
-	printf("keycode : %d \n", keycode);
 	if (keycode == FORWARD)
 		map->keys.forward = 1;
 	if (keycode == BACK)

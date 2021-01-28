@@ -1,10 +1,10 @@
 R 800 600
-NO   ./textures/NO.xpm 
+NO   ./source/save.c 
 SO   ./textures/SO.xpm 
 WE   ./textures/WE.xpm 
 EA ./textures/EA.xpm 
 S ./textures/SPRITE.xpm
-C 200     ,  200     ,   -2999999999999999999999999 
+C 200     ,  200     ,   29 
 F 100   ,   155   ,  255
 
 111111111111111
