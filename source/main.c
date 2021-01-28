@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/28 15:17:01 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/28 17:25:41 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ void		window(t_map *map)
 	map->img.addr = (int *)mlx_get_data_addr(map->img.img,
 	&map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
 	ft_init_raycasting_1(map);
+	write(1, "ok1", 3);
 	ft_texture(map);
 	ft_raycasting(map);
+	write(1, "ok2", 3);
 	if (map->save == 0)
 	{
 		mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
@@ -95,7 +97,6 @@ int			main(int argc, char **argv)
 	ft_initialize_map(&map);
 	if ((ft_parser(argc, argv, &map)))
 	{
-		while (1);
 		window(&map);
 		ft_print_matrice(&map);
 	}
