@@ -1,9 +1,4 @@
 - resolution max
-- flag --save
 - gerer les OS
-- check free()
-- check leaks --> free quqnd exit;
-- mettre en forme
 - mettre a la norme
 - rdme github
- 
