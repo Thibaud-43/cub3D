@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 10:02:15 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/28 14:43:28 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:29:22 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ void		ft_analyse_key(t_map *map)
 
 int			ft_raycasting(t_map *map)
 {
+	if (map->exit == 1)
+		return (1);
 	map->ray.x = 0;
 	while (map->ray.x < map->resolution[0])
 	{

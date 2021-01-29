@@ -142,6 +142,7 @@ typedef struct s_map
 	double	rotSpeed;
 	char	direction;
 	int		save;
+	int		exit;
 	t_vars	vars;
 	t_data	img;
 	t_ray	ray;
@@ -229,5 +230,6 @@ void		ft_order_sprites(t_map *map);
 void		ft_sprites(t_map *map);
 void		save_bmp(t_map *map);
 void		ft_free_map(t_map *map);
+int			ft_check_ch(char *str, char *charset);
 #endif
 

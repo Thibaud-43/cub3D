@@ -1,4 +1,3 @@
-- check .xpm
 - resolution max
 - flag --save
 - gerer les OS

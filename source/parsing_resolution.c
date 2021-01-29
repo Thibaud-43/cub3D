@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:03:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 17:05:09 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 11:18:14 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int		ft_parse_resolution(t_parsing *parsing, t_map *map)
 	parsing->resolution_encountered = 1;
 	if (!(resolution = ft_split(parsing->lign, ' ')))
 		return (0);
+	if (!(ft_check_ch(parsing->lign, "R ,0123456789")))
+		message_map_invalid(parsing,
+		"Error \n charactere invalide dans RESOLUTION\n");
 	i = 0;
 	if (!resolution[2] | !resolution[1] | !resolution[0])
 		message_map_invalid(parsing,

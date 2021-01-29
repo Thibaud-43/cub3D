@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/28 17:23:59 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:22:21 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_setpos_sprites(t_map *map)
 			{
 				map->spr.pos[s].x = (double)i + 0.5;			
 				map->spr.pos[s].y = (double)k + 0.5;
-				//map->matrice[i][k] = '0';
 				s++;
 			}
 			k++;
@@ -109,9 +108,9 @@ void	ft_setpos_sprites(t_map *map)
 int		ft_init_sprites(t_map *map)
 {
 	ft_count_sprites(map);
-	if (!(map->spr.dist = malloc(sizeof(double) * map->spr.nbr)))
+	if (!(map->spr.dist = malloc(sizeof(double) * (map->spr.nbr ))))
 		return 0;
-	if (!(map->spr.pos = malloc(sizeof(t_pos) * map->spr.nbr)))
+	if (!(map->spr.pos = malloc(sizeof(t_pos) * (map->spr.nbr ))))
 		return 0;
 	ft_setpos_sprites(map);
 	return (1);
@@ -153,14 +152,14 @@ void	ft_sprites(t_map *map)
 	while (i < map->spr.nbr)
 	{
 		ft_init_sprite_engine(map, i);
-		k = map->spr.drawStartX;
-		while (k < map->spr.drawEndX)
+		k = map->spr.drawStartX + 1;
+		while (k < (map->spr.drawEndX))
 		{
 			map->spr.texX = (int)((256 * (k - (-map->spr.spriteWidth / 2 + map->spr.spriteScreenX)) * map->texture[4].width / map->spr.spriteWidth) / 256);
 			if (map->spr.transformY > 0 && k > 0 && k < map->resolution[0])
 			{
 				z = map->spr.drawStartY;
-				while (z < map->spr.drawEndY)
+				while (z < (map->spr.drawEndY))
 				{
 					map->spr.d =  (z) * 256 - map->resolution[1] * 128 + map->spr.spriteHeight * 128;
 					map->spr.texY = ((map->spr.d * map->texture[4].height) / map->spr.spriteHeight) / 256;

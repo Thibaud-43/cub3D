@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/27 14:00:14 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 11:20:51 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ int			ft_parse_ceiling(t_parsing *parsing, t_map *map)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param CEILING est présente deux fois\n");
 	parsing->c_encountered = 1;
+	if (!(ft_check_ch(parsing->lign, "C ,0123456789")))
+		message_map_invalid(parsing,
+		"Error \n charactere invalide dans CEILING\n");
 	if (!(ceiling = ft_split(parsing->lign, ',')))
 		return (0);
 	if (!ceiling[0] | !ceiling[1] | !ceiling[2])

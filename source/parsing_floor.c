@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:09:14 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 16:58:29 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 11:23:10 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int			ft_parse_floor(t_parsing *parsing, t_map *map)
 	if (parsing->f_encountered == 1)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param FLOOR est présente deux fois\n");
+	if (!(ft_check_ch(parsing->lign, "F ,0123456789")))
+		message_map_invalid(parsing,
+		"Error \n charactere invalide dans FLOOR\n");
 	parsing->f_encountered = 1;
 	if (!(floor = ft_split(parsing->lign, ',')))
 		return (0);

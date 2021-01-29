@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:25:39 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/08 17:41:55 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 11:48:55 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,22 @@ void	free_split(char **str)
 	free(str);
 }
 
+
+
+int		ft_check_ch(char *str, char *charset)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(charset, str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	ft_print_matrice(t_map *map)
 {
 	int	k;
@@ -63,5 +79,13 @@ void	ft_print_matrice(t_map *map)
 		free(map->matrice[k]);
 		k++;
 	}
+	mlx_destroy_image(map->vars.mlx, map->img.img);
+	mlx_destroy_image(map->vars.mlx, map->texture[0].img);
+	mlx_destroy_image(map->vars.mlx, map->texture[1].img);
+	mlx_destroy_image(map->vars.mlx, map->texture[2].img);
+	mlx_destroy_image(map->vars.mlx, map->texture[3].img);
+	mlx_destroy_image(map->vars.mlx, map->texture[4].img);
+	mlx_destroy_window(map->vars.mlx, map->vars.win);
+
 	free(map->matrice);
 }
