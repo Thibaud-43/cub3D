@@ -1,11 +1,11 @@
-R 2560a 1440
+R 2560 1440
 NO   ./textures/NO.xpm 
 SO   ./textures/SO.xpm 
 WE   ./textures/WE.xpm 
 EA ./textures/EA.xpm 
 S ./textures/sprite.xpm
-C 114a     ,  75     ,   33
-F 161a   ,   153   ,  144
+C 114     ,  75     ,   33
+F 161   ,   153   ,  144
 
 111111111111111
 100000000000001

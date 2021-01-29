@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/29 12:36:32 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 16:21:58 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			main(int argc, char **argv)
 		window(&map);
 		ft_print_matrice(&map);
 	}
-	ft_free_map(&map);
-	while (1);
+	if (map.matrice)
+		ft_free_map(&map);
 	return (1);
 }

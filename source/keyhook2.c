@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/29 12:36:48 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 16:19:28 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		hook(int keycode, t_map *map)
 		ft_free_map(map);
 		ft_print_matrice(map);
 		map->exit = 1;
-		//exit(0);
+		exit(0);
 	}
 	if (keycode == FORWARD)
 		map->keys.forward = 1;

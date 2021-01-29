@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:25:39 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/29 11:48:55 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/01/29 16:24:02 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_print_matrice(t_map *map)
 	k = 0;
 	while (map->matrice[k])
 	{
-		printf("%s\n", map->matrice[k]);
 		free(map->matrice[k]);
 		k++;
 	}
