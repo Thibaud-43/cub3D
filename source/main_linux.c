@@ -29,14 +29,18 @@ void		ft_initialize_map(t_map *map)
 	map->floor[2] = 0;
 	map->resolution[0] = 0;
 	map->resolution[1] = 0;
+	map->save = 0;
+	map->exit = 0;
+	map->player_x = 0;
+	map->player_y = 0;
 	map->keys.forward = 0;
 	map->keys.back = 0;
 	map->keys.camright = 0;
 	map->keys.camleft = 0;
 	map->keys.left = 0;
 	map->keys.right = 0;
-	map->save = 0;
-	map->exit = 0;
+	/*map->vars.mlx = 0;
+	map->vars.win = 0;*/
 }
 
 void		ft_free_map(t_map *map)

@@ -11,14 +11,16 @@
 #include <string.h>
 #include <math.h>
 
-/*#define FORWARD 122
+#define FORWARD 122
 #define BACK 115
 #define LEFT 113
 #define RIGHT 100
 #define CAM_LEFT 65361
 #define CAM_RIGHT 65363
-#define EXIT 65307*/
-
+#define EXIT 65307
+#define MOVESPEED 0.05
+#define ROTSPEED 0.02
+/*
 #define FORWARD 13
 #define BACK 1
 #define LEFT 0
@@ -28,7 +30,7 @@
 #define EXIT 53
 #define MOVESPEED 0.05
 #define ROTSPEED 0.02
-
+*/
 
 typedef struct s_pos
 {

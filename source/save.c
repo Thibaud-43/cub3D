@@ -65,4 +65,5 @@ void	save_bmp(t_map *map)
 		}
 		i--;
 	}
+	close(fd);
 }

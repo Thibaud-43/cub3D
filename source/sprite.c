@@ -108,10 +108,13 @@ void	ft_setpos_sprites(t_map *map)
 int		ft_init_sprites(t_map *map)
 {
 	ft_count_sprites(map);
-	if (!(map->spr.dist = malloc(sizeof(double) * (map->spr.nbr ))))
+	if (!(map->spr.dist = malloc(sizeof(double) * (map->spr.nbr + 1))))
 		return 0;
-	if (!(map->spr.pos = malloc(sizeof(t_pos) * (map->spr.nbr ))))
+	if (!(map->spr.pos = malloc(sizeof(t_pos) * (map->spr.nbr + 1 ))))
 		return 0;
+	map->spr.dist[map->spr.nbr] = 0;
+	map->spr.pos[map->spr.nbr].x = 0;
+	map->spr.pos[map->spr.nbr].y = 0;
 	ft_setpos_sprites(map);
 	return (1);
 }
@@ -163,9 +166,9 @@ void	ft_sprites(t_map *map)
 				{
 					map->spr.d =  (z) * 256 - map->resolution[1] * 128 + map->spr.spriteHeight * 128;
 					map->spr.texY = ((map->spr.d * map->texture[4].height) / map->spr.spriteHeight) / 256;
-					if (map->texture[4].img->addr[map->spr.texY  * map->texture[4].img->line_length / 4 + map->spr.texX] != 0)
+					if (map->texture[4].addr[map->spr.texY  * map->texture[4].img->line_length / 4 + map->spr.texX] != 0)
 					{
-						map->img.addr[z * map->img.line_length / 4 + k] = map->texture[4].img->addr[map->spr.texY * map->texture[4].img->line_length / 4 + map->spr.texX];
+						map->img.addr[z * map->img.line_length / 4 + k] = map->texture[4].addr[map->spr.texY * map->texture[4].img->line_length / 4 + map->spr.texX];
 					}
 					z++;
 				}
