@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	ft_parse_resolution_2(t_parsing *parsing,
 char **resolution, int i, t_map *map)
@@ -53,11 +53,9 @@ int		ft_parse_resolution(t_parsing *parsing, t_map *map)
 	parsing->resolution_encountered = 1;
 	if (!(resolution = ft_split(parsing->lign, ' ')))
 		return (0);
-	if (!(ft_check_ch(parsing->lign, "R ,0123456789")))
-		message_map_invalid(parsing,
-		"Error \n charactere invalide dans RESOLUTION\n");
 	i = 0;
-	if (!resolution[2] | !resolution[1] | !resolution[0])
+	if (!resolution[2] | !resolution[1] | !resolution[0] |
+		!(ft_check_ch(parsing->lign, "R ,0123456789")))
 		message_map_invalid(parsing,
 		"Error \nLa ligne de param R n'est pas correctement rédigée \n");
 	if (resolution[3] != 0)

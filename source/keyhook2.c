@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	ft_rotate_left(t_map *map)
 {
 	double	oldirx;
 	double	oldplanex;
 
-	oldirx = map->ray.dirX;
-	oldplanex = map->ray.planeX;
-	map->ray.dirX = map->ray.dirX * cos(map->rotSpeed)
-	- map->ray.dirY * sin(map->rotSpeed);
-	map->ray.dirY = oldirx * sin(map->rotSpeed)
-	+ map->ray.dirY * cos(map->rotSpeed);
-	map->ray.planeX = map->ray.planeX * cos(map->rotSpeed)
-	- map->ray.planeY * sin(map->rotSpeed);
-	map->ray.planeY = oldplanex * sin(map->rotSpeed)
-	+ map->ray.planeY * cos(map->rotSpeed);
+	oldirx = map->ray.dirx;
+	oldplanex = map->ray.planex;
+	map->ray.dirx = map->ray.dirx * cos(map->rotspeed)
+	- map->ray.diry * sin(map->rotspeed);
+	map->ray.diry = oldirx * sin(map->rotspeed)
+	+ map->ray.diry * cos(map->rotspeed);
+	map->ray.planex = map->ray.planex * cos(map->rotspeed)
+	- map->ray.planey * sin(map->rotspeed);
+	map->ray.planey = oldplanex * sin(map->rotspeed)
+	+ map->ray.planey * cos(map->rotspeed);
 }
 
 int		hook(int keycode, t_map *map)
@@ -69,4 +69,12 @@ int		ft_release(int keycode, t_map *map)
 	if (keycode == RIGHT)
 		map->keys.right = 0;
 	return (1);
+}
+
+int		ft_exit(t_map *map)
+{
+	ft_free_map(map);
+	ft_print_matrice(map);
+	map->exit = 1;
+	exit(0);
 }

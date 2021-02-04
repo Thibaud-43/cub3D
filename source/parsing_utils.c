@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	message_map_invalid(t_parsing *parsing, char *str)
 {
@@ -51,8 +51,6 @@ void	free_split(char **str)
 	free(str[i]);
 	free(str);
 }
-
-
 
 int		ft_check_ch(char *str, char *charset)
 {

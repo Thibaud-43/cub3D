@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void		ft_check_coma(t_parsing *parsing)
 {
@@ -47,11 +47,7 @@ int			ft_parse_ceiling(t_parsing *parsing, t_map *map)
 {
 	char	**ceiling;
 	char	**rgb;
-	int		i;
-	int		k;
 
-	i = 0;
-	k = 0;
 	parsing->param_line_valid = 1;
 	ft_check_coma(parsing);
 	if (parsing->c_encountered == 1)

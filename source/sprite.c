@@ -10,108 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
-
-void	ft_dist_sprites(t_map *map)
-{
-	int i;
-
-	i = 0;
-	while (i < map->spr.nbr)
-	{
-		map->spr.dist[i] = ((map->ray.posX - map->spr.pos[i].x) * (map->ray.posX - map->spr.pos[i].x)) + ((map->ray.posY - map->spr.pos[i].y) * (map->ray.posY - map->spr.pos[i].y));
-		i++;
-	}
-}
-
-void	ft_transverse(t_map *map, int i, int k)
-{
-	double		tmpdist;
-	double		tmpx;
-	double		tmpy;
-
-	tmpdist = map->spr.dist[i];
-	map->spr.dist[i] = map->spr.dist[k];
-	map->spr.dist[k] = tmpdist;
-	tmpx = map->spr.pos[i].x;
-	map->spr.pos[i].x = map->spr.pos[k].x;
-	map->spr.pos[k].x = tmpx;
-	tmpy = map->spr.pos[i].y;
-	map->spr.pos[i].y = map->spr.pos[k].y;
-	map->spr.pos[k].y = tmpy;
-}
-
-void	ft_order_sprites(t_map *map)
-{
-	int i;
-	int k;
-	
-	i = 0;
-	while (i < map->spr.nbr)
-	{
-		k = i + 1;
-		while (k < map->spr.nbr)
-		{
-			if (map->spr.dist[i] < map->spr.dist[k])
-				ft_transverse(map, i, k);	
-			k++;
-		}
-		i++;
-	}
-}
-
-void	ft_count_sprites(t_map *map)
-{
-	int		i;
-	int		k;
-
-	i = 0;
-	map->spr.nbr = 0;
-	while (map->matrice[i])
-	{
-		k = 0;
-		while (map->matrice[i][k])
-		{
-			if (map->matrice[i][k] == '2')
-				map->spr.nbr++;
-			k++;
-		}
-		i++;
-	}
-}
-
-void	ft_setpos_sprites(t_map *map)
-{
-	int i;
-	int k;
-	int s;
-
-	i = 0;
-	s = 0;
-	while (map->matrice[i])
-	{
-		k = 0;
-		while (map->matrice[i][k])
-		{
-			if (map->matrice[i][k] == '2')
-			{
-				map->spr.pos[s].x = (double)i + 0.5;			
-				map->spr.pos[s].y = (double)k + 0.5;
-				s++;
-			}
-			k++;
-		}
-		i++;
-	}
-}
+#include "cub3d.h"
 
 int		ft_init_sprites(t_map *map)
 {
 	ft_count_sprites(map);
 	if (!(map->spr.dist = malloc(sizeof(double) * (map->spr.nbr + 1))))
-		return 0;
-	if (!(map->spr.pos = malloc(sizeof(t_pos) * (map->spr.nbr + 1 ))))
-		return 0;
+		return (0);
+	if (!(map->spr.pos = malloc(sizeof(t_pos) * (map->spr.nbr + 1))))
+		return (0);
 	map->spr.dist[map->spr.nbr] = 0;
 	map->spr.pos[map->spr.nbr].x = 0;
 	map->spr.pos[map->spr.nbr].y = 0;
@@ -119,28 +26,70 @@ int		ft_init_sprites(t_map *map)
 	return (1);
 }
 
+void	ft_init_sprite_engine2(t_map *map, int i)
+{
+	if (map->spr.drawstarty < 0)
+		map->spr.drawstarty = 0;
+	map->spr.drawendy = map->spr.spriteheight
+	/ 2 + map->resolution[1] / 2;
+	if (map->spr.drawendy >= map->resolution[1])
+		map->spr.drawendy = map->resolution[1] - 1;
+	map->spr.spritewidth = abs((int)(map->resolution[1]
+	/ map->spr.transformy));
+	map->spr.drawstartx = -map->spr.spritewidth / 2 + map->spr.spritescreenx;
+	if (map->spr.drawendx < 0)
+		map->spr.drawendx = 0;
+	map->spr.drawendx = map->spr.spritewidth
+	/ 2 + map->spr.spritescreenx;
+	if (map->spr.drawstartx >= map->resolution[0])
+		map->spr.drawstartx = map->resolution[0] - 1;
+}
+
 void	ft_init_sprite_engine(t_map *map, int i)
 {
-	map->spr.spriteX = map->spr.pos[i].x - map->ray.posX;
-	map->spr.spriteY = map->spr.pos[i].y - map->ray.posY;
-	map->spr.invDet = 1.0 / (map->ray.planeX * map->ray.dirY - map->ray.dirX * map->ray.planeY);
-	map->spr.transformX = map->spr.invDet * (map->ray.dirY * map->spr.spriteX - map->ray.dirX * map->spr.spriteY);
-	map->spr.transformY = map->spr.invDet * (-map->ray.planeY * map->spr.spriteX + map->ray.planeX * map->spr.spriteY);
-	map->spr.spriteScreenX = (int)((map->resolution[0] / 2) * (1 + map->spr.transformX / map->spr.transformY));	
-	map->spr.spriteHeight = abs((int)(map->resolution[1] / map->spr.transformY));
-	map->spr.drawStartY = -map->spr.spriteHeight / 2 + map->resolution[1] / 2;
-	if (map->spr.drawStartY < 0)
-		map->spr.drawStartY = 0;
-	map->spr.drawEndY = map->spr.spriteHeight / 2 + map->resolution[1] / 2;
-	if (map->spr.drawEndY >= map->resolution[1])
-		map->spr.drawEndY = map->resolution[1] - 1;
-	map->spr.spriteWidth = abs((int)(map->resolution[1] / map->spr.transformY));
-	map->spr.drawStartX = -map->spr.spriteWidth / 2 + map->spr.spriteScreenX;
-	if (map->spr.drawEndX < 0)
-		map->spr.drawEndX = 0;
-	map->spr.drawEndX = map->spr.spriteWidth / 2 + map->spr.spriteScreenX;
-	if (map->spr.drawStartX >= map->resolution[0])
-		map->spr.drawStartX = map->resolution[0] - 1;
+	map->spr.spritex = map->spr.pos[i].x - map->ray.posx;
+	map->spr.spritey = map->spr.pos[i].y - map->ray.posy;
+	map->spr.invdet = 1.0 / (map->ray.planex *
+	map->ray.diry - map->ray.dirx * map->ray.planey);
+	map->spr.transformx = map->spr.invdet * (map->ray.diry
+	* map->spr.spritex - map->ray.dirx * map->spr.spritey);
+	map->spr.transformy = map->spr.invdet * (-map->ray.planey
+	* map->spr.spritex + map->ray.planex * map->spr.spritey);
+	map->spr.spritescreenx = (int)((map->resolution[0] / 2)
+	* (1 + map->spr.transformx / map->spr.transformy));
+	map->spr.spriteheight = abs((int)(map->resolution[1]
+	/ map->spr.transformy));
+	map->spr.drawstarty = -map->spr.spriteheight
+	/ 2 + map->resolution[1] / 2;
+	ft_init_sprite_engine2(map, i);
+}
+
+void	ft_sprites2(t_map *map, int *i, int *k, int *z)
+{
+	while ((*k) < (map->spr.drawendx))
+	{
+		map->spr.texx = (int)((256 * ((*k) - (-map->spr.spritewidth
+		/ 2 + map->spr.spritescreenx)) * map->texture[4].width
+		/ map->spr.spritewidth) / 256);
+		if (map->spr.transformy > 0 && (*k) > 0 && (*k) < map->resolution[0])
+		{
+			(*z) = map->spr.drawstarty;
+			while ((*z) < (map->spr.drawendy))
+			{
+				map->spr.d = (*z) * 256 - map->resolution[1] *
+				128 + map->spr.spriteheight * 128;
+				map->spr.texy = ((map->spr.d * map->texture[4].height)
+				/ map->spr.spriteheight) / 256;
+				if (map->texture[4].addr[map->spr.texy *
+				map->texture[4].img->line_length / 4 + map->spr.texx] != 0)
+					map->img.addr[*z * map->img.line_length / 4 + (*k)] =
+					map->texture[4].addr[map->spr.texy *
+					map->texture[4].img->line_length / 4 + map->spr.texx];
+				(*z)++;
+			}
+		}
+		(*k)++;
+	}
 }
 
 void	ft_sprites(t_map *map)
@@ -155,26 +104,8 @@ void	ft_sprites(t_map *map)
 	while (i < map->spr.nbr)
 	{
 		ft_init_sprite_engine(map, i);
-		k = map->spr.drawStartX + 1;
-		while (k < (map->spr.drawEndX))
-		{
-			map->spr.texX = (int)((256 * (k - (-map->spr.spriteWidth / 2 + map->spr.spriteScreenX)) * map->texture[4].width / map->spr.spriteWidth) / 256);
-			if (map->spr.transformY > 0 && k > 0 && k < map->resolution[0])
-			{
-				z = map->spr.drawStartY;
-				while (z < (map->spr.drawEndY))
-				{
-					map->spr.d =  (z) * 256 - map->resolution[1] * 128 + map->spr.spriteHeight * 128;
-					map->spr.texY = ((map->spr.d * map->texture[4].height) / map->spr.spriteHeight) / 256;
-					if (map->texture[4].addr[map->spr.texY  * map->texture[4].img->line_length / 4 + map->spr.texX] != 0)
-					{
-						map->img.addr[z * map->img.line_length / 4 + k] = map->texture[4].addr[map->spr.texY * map->texture[4].img->line_length / 4 + map->spr.texX];
-					}
-					z++;
-				}
-			}
-			k++;
-		}
+		k = map->spr.spritewidth + 1;
+		ft_sprites2(map, &i, &k, &z);
 		i++;
 	}
 }

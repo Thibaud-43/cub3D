@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void		ft_initialize_map(t_map *map)
 {
@@ -39,8 +39,6 @@ void		ft_initialize_map(t_map *map)
 	map->keys.camleft = 0;
 	map->keys.left = 0;
 	map->keys.right = 0;
-	/*map->vars.mlx = 0;
-	map->vars.win = 0;*/
 }
 
 void		ft_free_map(t_map *map)
@@ -59,27 +57,18 @@ void		ft_free_map(t_map *map)
 
 void		resolution_ms_rs(t_map *map)
 {
-	int		tmpW;
-	int		tmpH;
+	int		tmpw;
+	int		tmph;
 
-	tmpW = 0;
-	tmpH = 0;
-	mlx_get_screen_size(map->vars.mlx, &tmpW, &tmpH);
-	if (tmpW < map->resolution[0] && map->save == 0)
-		map->resolution[0] = tmpW;
-	if (tmpH < map->resolution[1] && map->save == 0)
-		map->resolution[1] = tmpH;
-	map->moveSpeed = MOVESPEED;
-	map->rotSpeed = ROTSPEED;
-}
-
-
-int		ft_exit(t_map *map)
-{
-	ft_free_map(map);
-	ft_print_matrice(map);
-	map->exit = 1;
-	exit(0);
+	tmpw = 0;
+	tmph = 0;
+	mlx_get_screen_size(map->vars.mlx, &tmpw, &tmph);
+	if (tmpw < map->resolution[0] && map->save == 0)
+		map->resolution[0] = tmpw;
+	if (tmph < map->resolution[1] && map->save == 0)
+		map->resolution[1] = tmph;
+	map->movespeed = MOVESPEED;
+	map->rotspeed = ROTSPEED;
 }
 
 void		window(t_map *map)

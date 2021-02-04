@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static int		ft_parser_4(t_parsing *parsing, int *i, int *k, t_map *map)
 {
@@ -94,6 +94,19 @@ static int		ft_parser_2(t_parsing *parsing, int *i, int *k, t_map *map)
 	return (1);
 }
 
+int				ft_parser_5(t_parsing *parsing, int fd, int i, int k)
+{
+	free(parsing->lign);
+	ft_all_params(parsing);
+	if (parsing->is_valid == 1)
+	{
+		ft_parse_map_advanced(parsing, argv, map);
+		if (ft_init_sprites(map) == 0)
+			return (0);
+	}
+	close(fd);
+}
+
 int				ft_parser(int argc, char **argv, t_map *map)
 {
 	t_parsing	parsing;
@@ -115,14 +128,7 @@ int				ft_parser(int argc, char **argv, t_map *map)
 			| ft_parser_4(&parsing, &i, &k, map) == 0)
 			return (0);
 	}
-	free(parsing.lign);
-	ft_all_params(&parsing);
-	if (parsing.is_valid == 1)
-	{
-		ft_parse_map_advanced(&parsing, argv, map);
-		if (ft_init_sprites(map) == 0)
-			return (0);
-	}
-	close(fd);
+	if (!(ft_parser_5(&parsing, fd, i, k)))
+		return (0);
 	return (parsing.is_valid);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void		ft_check_args(t_map *map, t_parsing *parsing, int argc, char **argv)
 {
