@@ -43,6 +43,7 @@ typedef struct	s_sprite
 {
 	int			nbr;
 	double		*dist;
+	double		*zbuffer;
 	t_pos		*pos;
 	double		spritex;
 	double		spritey;
@@ -252,5 +253,8 @@ void			ft_init_raycasting_2(t_map *map);
 void			ft_init_raycasting_3(t_map *map);
 void			ft_init_deltadist(t_map *map);
 void			ft_init_dist(t_map *map);
+void			ft_setpos_sprites(t_map *map);
+void			ft_order_sprites(t_map *map);
+void			ft_count_sprites(t_map *map);
 
 #endif

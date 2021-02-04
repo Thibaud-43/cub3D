@@ -87,6 +87,7 @@ int			ft_raycasting(t_map *map)
 		ft_project_ray(map);
 		ft_init_draw(map);
 		ft_draw_vertical_line(map->ray.x, &map->ray, map);
+		map->spr.zbuffer[map->ray.x] = map->ray.perpwalldist;
 		map->ray.x++;
 	}
 	ft_sprites(map);

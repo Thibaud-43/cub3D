@@ -94,7 +94,7 @@ static int		ft_parser_2(t_parsing *parsing, int *i, int *k, t_map *map)
 	return (1);
 }
 
-int				ft_parser_5(t_parsing *parsing, int fd, int i, int k)
+int				ft_parser_5(t_parsing *parsing, int fd, char **argv, t_map *map)
 {
 	free(parsing->lign);
 	ft_all_params(parsing);
@@ -105,6 +105,7 @@ int				ft_parser_5(t_parsing *parsing, int fd, int i, int k)
 			return (0);
 	}
 	close(fd);
+	return (1);
 }
 
 int				ft_parser(int argc, char **argv, t_map *map)
@@ -128,7 +129,7 @@ int				ft_parser(int argc, char **argv, t_map *map)
 			| ft_parser_4(&parsing, &i, &k, map) == 0)
 			return (0);
 	}
-	if (!(ft_parser_5(&parsing, fd, i, k)))
+	if (!(ft_parser_5(&parsing, fd, argv, map)))
 		return (0);
 	return (parsing.is_valid);
 }

@@ -78,6 +78,7 @@ void	ft_print_matrice(t_map *map)
 	}
 	free(map->matrice[k]);
 	free(map->matrice);
+	free(map->spr.zbuffer);
 	mlx_destroy_image(map->vars.mlx, map->img.img);
 	mlx_destroy_window(map->vars.mlx, map->vars.win);
 	mlx_destroy_display(map->vars.mlx);
