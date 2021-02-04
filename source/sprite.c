@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:47:07 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/29 12:22:21 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/02/04 15:45:31 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,18 @@ void	ft_init_sprite_engine(t_map *map, int i)
 {
 	map->spr.spritex = map->spr.pos[i].x - map->ray.posx;
 	map->spr.spritey = map->spr.pos[i].y - map->ray.posy;
-	map->spr.invdet = 1.0 / (map->ray.planex * map->ray.diry - map->ray.dirx * map->ray.planey);
-	map->spr.transformx = map->spr.invdet * (map->ray.diry * map->spr.spritex - map->ray.dirx * map->spr.spritey);
-	map->spr.transformy = map->spr.invdet * (-map->ray.planey * map->spr.spritex + map->ray.planex * map->spr.spritey);
-	map->spr.spritescreenx = (int)((map->resolution[0] / 2)	* (1 + map->spr.transformx / map->spr.transformy));
-	map->spr.spriteheight = abs((int)(map->resolution[1] / map->spr.transformy));
-	map->spr.drawstarty = -map->spr.spriteheight / 2 + map->resolution[1] / 2;
+	map->spr.invdet = 1.0 / (map->ray.planex * map->ray.diry
+	- map->ray.dirx * map->ray.planey);
+	map->spr.transformx = map->spr.invdet * (map->ray.diry
+	* map->spr.spritex - map->ray.dirx * map->spr.spritey);
+	map->spr.transformy = map->spr.invdet * (-map->ray.planey
+	* map->spr.spritex + map->ray.planex * map->spr.spritey);
+	map->spr.spritescreenx = (int)((map->resolution[0] / 2)
+	* (1 + map->spr.transformx / map->spr.transformy));
+	map->spr.spriteheight = abs((int)(map->resolution[1]
+	/ map->spr.transformy));
+	map->spr.drawstarty = -map->spr.spriteheight
+	/ 2 + map->resolution[1] / 2;
 	ft_init_sprite_engine2(map);
 }
 
@@ -61,18 +67,24 @@ void	ft_sprites2(t_map *map, int *k, int *z)
 {
 	while ((*k) < (map->spr.drawendx))
 	{
-		map->spr.texx = (int)(256 * ((*k) - (-map->spr.spritewidth / 2 + map->spr.spritescreenx)) * map->texture[4].width / map->spr.spritewidth) / 256;
-		if (map->spr.transformy > 0 && (*k) >= 0 && (*k) < map->resolution[0] && map->spr.zbuffer[*k - 1] > map->spr.transformy)
+		map->spr.texx = (int)(256 * ((*k) - (-map->spr.spritewidth
+		/ 2 + map->spr.spritescreenx)) * map->texture[4].width
+		/ map->spr.spritewidth) / 256;
+		if (map->spr.transformy > 0 && (*k) >= 0 && (*k) < map->resolution[0]
+		&& map->spr.zbuffer[*k - 1] > map->spr.transformy)
 		{
 			(*z) = map->spr.drawstarty;
 			while ((*z) < (map->spr.drawendy))
 			{
-				map->spr.d = (*z) * 256 - map->resolution[1] * 128 + map->spr.spriteheight * 128;
-				map->spr.texy = ((map->spr.d * map->texture[4].height) / map->spr.spriteheight) / 256;
-				if (map->texture[4].addr[map->spr.texy * map->texture[4].img->line_length / 4 + map->spr.texx] != 0)
-				{
-					map->img.addr[(*z) * map->img.line_length / 4 + (*k)] = map->texture[4].addr[map->spr.texy * map->texture[4].img->line_length / 4 + map->spr.texx];
-				}
+				map->spr.d = (*z) * 256 - map->resolution[1]
+				* 128 + map->spr.spriteheight * 128;
+				map->spr.texy = ((map->spr.d * map->texture[4].height)
+				/ map->spr.spriteheight) / 256;
+				if (map->texture[4].addr[map->spr.texy *
+				map->texture[4].img->line_length / 4 + map->spr.texx] != 0)
+					map->img.addr[(*z) * map->img.line_length /
+					4 + (*k)] = map->texture[4].addr[map->spr.texy *
+					map->texture[4].img->line_length / 4 + map->spr.texx];
 				(*z)++;
 			}
 		}
