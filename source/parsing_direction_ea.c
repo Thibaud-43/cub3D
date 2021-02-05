@@ -16,6 +16,7 @@ int	ft_parse_direction_ea(t_parsing *parsing, t_map *map)
 {
 	char	**direction;
 	int		fd;
+	char	buff[2];
 
 	parsing->param_line_valid = 1;
 	if (parsing->ea_encountered == 1)
@@ -31,7 +32,7 @@ int	ft_parse_direction_ea(t_parsing *parsing, t_map *map)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param EA n'est pas correctement rédigée \n");
 	fd = open(direction[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 | read(fd, buff, 1) < 0)
 		message_map_invalid(parsing,
 		"Error \n La texture EA n'est pas correcte \n");
 	close(fd);

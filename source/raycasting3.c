@@ -55,7 +55,7 @@ void		ft_draw_texture2(int *i, int x, t_map *map, int dir)
 		if (*i < map->resolution[1] && x < map->resolution[0])
 			map->img.addr[*i * map->img.line_length / 4 + x] =
 			map->texture[dir].addr[map->texture[dir].texy *
-			map->texture[dir].img->line_length / 4 + map->texture[dir].texx];
+			map->texture[dir].image.line_length / 4 + map->texture[dir].texx];
 		(*i)++;
 	}
 }

@@ -16,6 +16,7 @@ int	ft_parse_sprite(t_parsing *parsing, t_map *map)
 {
 	char	**sprite;
 	int		fd;
+	char	buff[2];
 
 	parsing->param_line_valid = 1;
 	if (parsing->s_encountered == 1)
@@ -31,7 +32,7 @@ int	ft_parse_sprite(t_parsing *parsing, t_map *map)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param S n'est pas correctement rédigée \n");
 	fd = open(sprite[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 | read(fd, buff, 1) < 0)
 		message_map_invalid(parsing,
 		"Error \nLE SPRITE ne s'ouvre pas correctement\n");
 	close(fd);

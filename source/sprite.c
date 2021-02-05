@@ -81,10 +81,10 @@ void	ft_sprites2(t_map *map, int *k, int *z)
 				map->spr.texy = ((map->spr.d * map->texture[4].height)
 				/ map->spr.spriteheight) / 256;
 				if (map->texture[4].addr[map->spr.texy *
-				map->texture[4].img->line_length / 4 + map->spr.texx] != 0)
+				map->texture[4].image.line_length / 4 + map->spr.texx] != 0)
 					map->img.addr[(*z) * map->img.line_length /
 					4 + (*k)] = map->texture[4].addr[map->spr.texy *
-					map->texture[4].img->line_length / 4 + map->spr.texx];
+					map->texture[4].image.line_length / 4 + map->spr.texx];
 				(*z)++;
 			}
 		}

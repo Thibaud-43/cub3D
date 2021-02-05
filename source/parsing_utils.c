@@ -76,10 +76,21 @@ void	ft_print_matrice(t_map *map)
 		free(map->matrice[k]);
 		k++;
 	}
-	free(map->matrice[k]);
 	free(map->matrice);
 	free(map->spr.zbuffer);
-	mlx_destroy_image(map->vars.mlx, map->img.img);
+	if (map->img.img)
+		mlx_destroy_image(map->vars.mlx, map->img.img);
+	if (map->texture[0].image.img)
+		mlx_destroy_image(map->vars.mlx, map->texture[0].image.img);
+	if (map->texture[1].image.img)
+		mlx_destroy_image(map->vars.mlx, map->texture[1].image.img);
+	if (map->texture[2].image.img)
+		mlx_destroy_image(map->vars.mlx, map->texture[2].image.img);
+	if (map->texture[3].image.img)
+		mlx_destroy_image(map->vars.mlx, map->texture[3].image.img);
+	if (map->texture[4].image.img)
+		mlx_destroy_image(map->vars.mlx, map->texture[4].image.img);
 	mlx_destroy_window(map->vars.mlx, map->vars.win);
 	mlx_destroy_display(map->vars.mlx);
+	free(map->vars.mlx);
 }

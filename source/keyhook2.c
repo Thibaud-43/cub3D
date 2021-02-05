@@ -37,7 +37,7 @@ int		hook(int keycode, t_map *map)
 		ft_free_map(map);
 		ft_print_matrice(map);
 		map->exit = 1;
-		exit(0);
+		exit(1);
 	}
 	if (keycode == FORWARD)
 		map->keys.forward = 1;

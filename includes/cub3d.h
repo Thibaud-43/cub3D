@@ -72,7 +72,7 @@ typedef struct	s_data {
 
 typedef struct	s_texture
 {
-	t_data		*img;
+	t_data		image;
 	int			*addr;
 	int			height;
 	int			width;

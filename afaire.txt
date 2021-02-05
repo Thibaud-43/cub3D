@@ -1,4 +1,0 @@
-- resolution max
-- gerer les OS
-- mettre a la norme
-- rdme github

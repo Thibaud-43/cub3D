@@ -16,6 +16,7 @@ int	ft_parse_direction_no(t_parsing *parsing, t_map *map)
 {
 	char	**direction;
 	int		fd;
+	char	buff[2];
 
 	parsing->param_line_valid = 1;
 	if (parsing->no_encountered == 1)
@@ -31,7 +32,7 @@ int	ft_parse_direction_no(t_parsing *parsing, t_map *map)
 		message_map_invalid(parsing,
 		"Error \n La ligne de param NO n'est pas correctement rédigée \n");
 	fd = open(direction[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 | read(fd, buff, 1) < 0)
 		message_map_invalid(parsing,
 		"Error \n La texture NO n'est pas correcte \n");
 	map->no = ft_strdup(direction[1]);
