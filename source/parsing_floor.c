@@ -33,14 +33,17 @@ char **floor, char **rgb, t_map *map)
 	if ((!rgb[1]) | (rgb[2] != 0))
 		message_map_invalid(parsing,
 		"Error \n La ligne de param FLOOR n'est pas correctement rédigée \n");
-	map->floor[0] = ft_atoi(rgb[1]);
-	map->floor[1] = ft_atoi(floor[1]);
-	map->floor[2] = ft_atoi(floor[2]);
-	if ((map->floor[0] < 0 | map->floor[0] > 255)
-		| (map->floor[1] < 0 | map->floor[1] > 255)
-		| (map->floor[2] < 0 | map->floor[2] > 255))
-		message_map_invalid(parsing,
-		"Error \n Le code RGB de param FLOOR n'est pas correctement rédigé \n");
+	else
+	{
+		map->floor[0] = ft_atoi(rgb[1]);
+		map->floor[1] = ft_atoi(floor[1]);
+		map->floor[2] = ft_atoi(floor[2]);
+		if ((map->floor[0] < 0 | map->floor[0] > 255)
+			| (map->floor[1] < 0 | map->floor[1] > 255)
+			| (map->floor[2] < 0 | map->floor[2] > 255))
+			message_map_invalid(parsing,
+			"Error \n Le code RGB de FLOOR n'est pas correctement rédigé \n");
+	}
 }
 
 int			ft_parse_floor(t_parsing *parsing, t_map *map)
@@ -64,7 +67,8 @@ int			ft_parse_floor(t_parsing *parsing, t_map *map)
 		"Error \n La ligne de param FLOOR n'est pas correctement rédigée \n");
 	if (!(rgb = ft_split(floor[0], ' ')))
 		return (0);
-	ft_parse_floor_2(parsing, floor, rgb, map);
+	if (parsing->is_valid == 1)
+		ft_parse_floor_2(parsing, floor, rgb, map);
 	free_split(rgb);
 	free_split(floor);
 	return (1);

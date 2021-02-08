@@ -24,17 +24,25 @@ void		ft_check_args(t_map *map, t_parsing *parsing, int argc, char **argv)
 		message_map_invalid(parsing,
 		"Error \n Le troisième argument n'est pas reconnu.\n");
 	else if (ft_checks_cub_format(argv[1]) == 0)
+	{
 		message_map_invalid(parsing,
 		"Error \n Le format du '.cub' n'est pas correcte.\n");
+		exit(0);
+	}
 }
 
 int			ft_checks_cub_format(char *str)
 {
 	int	i;
 	int	count_dot;
+	int	fd;
+	char		buff[2];
 
 	count_dot = 0;
 	i = 0;
+	fd = open(str, O_RDONLY);
+	if (fd < 0 | read(fd, buff, 1) < 0)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '.')
@@ -45,6 +53,7 @@ int			ft_checks_cub_format(char *str)
 			return (1);
 		i++;
 	}
+	close(fd);
 	return (0);
 }
 

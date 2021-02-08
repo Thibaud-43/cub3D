@@ -75,21 +75,22 @@ void		window(t_map *map)
 {
 	map->matrice[(int)map->player_y][(int)map->player_x] = '0';
 	map->vars.mlx = mlx_init();
+	ft_texture(map);
 	resolution_ms_rs(map);
-	map->vars.win = mlx_new_window(map->vars.mlx,
-	map->resolution[0], map->resolution[1], "Cub3D");
 	map->img.img = mlx_new_image(map->vars.mlx,
 	map->resolution[0], map->resolution[1]);
 	map->img.addr = (int *)mlx_get_data_addr(map->img.img,
 	&map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
+	if (map->save == 0)
+		map->vars.win = mlx_new_window(map->vars.mlx,
+		map->resolution[0], map->resolution[1], "Cub3D");
 	ft_init_raycasting_1(map);
-	ft_texture(map);
 	ft_raycasting(map);
 	if (map->save == 0)
 	{
 		mlx_hook(map->vars.win, 2, 1L << 0, hook, map);
 		mlx_hook(map->vars.win, 3, 1L << 1, ft_release, map);
-		mlx_hook(map->vars.win, 17, 1L << 17, ft_exit, map);
+		mlx_hook(map->vars.win, 33, 1L << 5, ft_exit, map);
 		mlx_loop_hook(map->vars.mlx, ft_raycasting, map);
 		mlx_loop(map->vars.mlx);
 	}

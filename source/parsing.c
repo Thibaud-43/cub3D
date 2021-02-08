@@ -59,7 +59,7 @@ static int		ft_parser_3(t_parsing *parsing, int *i, t_map *map)
 	if (parsing->lign[*i] == 0 && parsing->map_encountered == 1)
 	{
 		message_map_invalid(parsing,
-		"Error\n Présence d'uneligne vide au niveau de la map\n");
+		"Error\n Présence d'une ligne vide au niveau de la map\n");
 		parsing->param_line_valid = 1;
 	}
 	return (1);
@@ -97,9 +97,9 @@ static int		ft_parser_2(t_parsing *parsing, int *i, int *k, t_map *map)
 int				ft_parser_5(t_parsing *parsing, int fd, char **argv, t_map *map)
 {
 	free(parsing->lign);
-	ft_all_params(parsing);
 	if (parsing->is_valid == 1)
 	{
+		ft_all_params(parsing);
 		ft_parse_map_advanced(parsing, argv, map);
 		if (ft_init_sprites(map) == 0)
 			return (0);

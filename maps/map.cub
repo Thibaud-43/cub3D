@@ -3,9 +3,9 @@ NO   ./textures/NO.xpm
 SO   ./textures/SO.xpm 
 WE   ./textures/WE.xpm 
 EA ./textures/EA.xpm 
-S ./textures/SPRITE.xpm
-C 114     ,  75     ,   33
-F 161   ,   153   ,  144
+S ./textures/SPRITE.xpm 
+C 12     , 1, 12
+F 12   ,   153   ,  144
 
 111111111111111
 100000000000001
