@@ -6,7 +6,7 @@
 /*   By: trouchon <trouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:15:51 by trouchon          #+#    #+#             */
-/*   Updated: 2021/01/28 13:03:32 by trouchon         ###   ########.fr       */
+/*   Updated: 2021/02/08 11:20:27 by trouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void		ft_check_args(t_map *map, t_parsing *parsing, int argc, char **argv)
 
 int			ft_checks_cub_format(char *str)
 {
-	int	i;
-	int	count_dot;
-	int	fd;
-	char		buff[2];
+	int		i;
+	int		count_dot;
+	int		fd;
+	char	buff[2];
 
 	count_dot = 0;
 	i = 0;
